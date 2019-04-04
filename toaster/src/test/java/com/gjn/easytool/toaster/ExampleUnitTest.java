@@ -1,4 +1,4 @@
-package com.gjn.easytool.logger;
+package com.gjn.easytool.toaster;
 
 import org.junit.Test;
 

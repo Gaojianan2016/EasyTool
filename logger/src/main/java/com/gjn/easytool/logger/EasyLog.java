@@ -13,16 +13,19 @@ import org.json.JSONObject;
  */
 
 public class EasyLog {
-    public static final int LEVEL_V = 2;
-    public static final int LEVEL_D = 3;
-    public static final int LEVEL_I = 4;
-    public static final int LEVEL_W = 5;
-    public static final int LEVEL_E = 6;
-    public static final int LEVEL_WTF = 7;
-    public static final String HEAD = "╔═══════════════════════════════════════════════════════════════════════════";
-    public static final String BODY = "║ ";
-    public static final String FOOT = "╚═══════════════════════════════════════════════════════════════════════════";
     private static final String TAG = "EasyLog";
+
+    public static final int LEVEL_V =   2;
+    public static final int LEVEL_D =   3;
+    public static final int LEVEL_I =   4;
+    public static final int LEVEL_W =   5;
+    public static final int LEVEL_E =   6;
+    public static final int LEVEL_WTF = 7;
+
+    public static final String HEAD = "╔══════════════════════════════════════════════════════════";
+    public static final String BODY = "║ ";
+    public static final String FOOT = "╚══════════════════════════════════════════════════════════";
+
     public static boolean isDebug = true;
 
     private static void println(int level, String tag, String msg, Throwable tr) {
@@ -84,7 +87,7 @@ public class EasyLog {
     }
 
     public static void wtf(String tag, String msg, Throwable tr) {
-        println(LEVEL_W, tag, msg, tr);
+        println(LEVEL_WTF, tag, msg, tr);
     }
 
     public static void v(String tag, String msg) {
@@ -143,11 +146,13 @@ public class EasyLog {
         String json;
         if (obj instanceof String) {
             json = ((String) obj);
-        } else if(obj instanceof JSONObject){
-           json = obj.toString();
-        }else {
+        } else if (obj instanceof JSONObject) {
+            json = obj.toString();
+        } else {
             json = new Gson().toJson(obj);
         }
-        d(JsonUtils.formatString(json));
+        d(HEAD);
+        d(JsonUtils.formatString(BODY, json));
+        d(FOOT);
     }
 }

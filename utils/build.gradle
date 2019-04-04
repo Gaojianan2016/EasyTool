@@ -6,8 +6,6 @@ android {
     compileSdkVersion 27
     defaultConfig {
         minSdkVersion 19
-        versionCode 1
-        versionName "1.0"
     }
     buildTypes {
         release {
@@ -19,5 +17,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    compileOnly 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+
+    implementation 'com.google.zxing:core:3.3.3'
 }

@@ -9,11 +9,15 @@ import android.text.TextUtils;
 
 public class JsonUtils {
     public static String formatString(String json){
+        return formatString("", json);
+    }
+
+    public static String formatString(String tab, String json){
         if (TextUtils.isEmpty(json)) {
             return "";
         }
         json = json.replaceAll("\\s*|\t|\r|\n", "");
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(tab);
         char current;
         char ln = '\n';
         int line = 0;
@@ -23,21 +27,21 @@ public class JsonUtils {
                 //换行 并且加一级tab
                 case '{':
                 case '[':
-                    sb.append(current).append(ln);
+                    sb.append(current).append(ln).append(tab);
                     line++;
                     addTab(sb, line);
                     break;
                 //换行 并且减一级tab
                 case ']':
                 case '}':
-                    sb.append(ln);
+                    sb.append(ln).append(tab);
                     line--;
                     addTab(sb, line);
                     sb.append(current);
                     break;
                 //换行 并且同级tab
                 case ',':
-                    sb.append(current).append(ln);
+                    sb.append(current).append(ln).append(tab);
                     addTab(sb, line);
                     break;
                 default:

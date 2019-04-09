@@ -1,7 +1,5 @@
 package com.gjn.easytool.utils;
 
-import android.util.Log;
-
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
@@ -36,6 +34,10 @@ public class StringUtils {
         return String.valueOf(str.charAt(0));
     }
 
+    public static String gsMethodName(String gors, String name){
+        return gors + getFirstStr(name).toUpperCase() + name.substring(1);
+    }
+
     public static String getSizeStr(long size) {
         String result;
         if (size > 1024 * 1024 * 1024) {
@@ -50,24 +52,27 @@ public class StringUtils {
         return result;
     }
 
-    public static String msecFormat(long msec){
+    public static String msecFormat(long msec) {
         String time = "";
         long minutes = Math.abs(msec) / 60 / 1000;
         if (minutes > 60 * 24 * 3) {
             time = "三天以上";
-        }if (minutes > 60 * 24 * 2) {
+        }
+        if (minutes > 60 * 24 * 2) {
             time = "两天前";
-        }if (minutes > 60 * 24) {
+        }
+        if (minutes > 60 * 24) {
             time = "一天前";
+        } else if(minutes > 60){
+            time += minutes / 60 + "时";
+            time += minutes % 60 + "分";
         }else {
-            time += minutes / 60+"时";
-            time += minutes % 60+"分";
+            time += minutes % 60 + "分";
         }
         return time;
     }
 
-
-    public static String systemFormat(long time){
+    public static String systemFormat(long time) {
         long msec = System.currentTimeMillis() - time;
         String result = dataFormat(time, "yyyy-MM-dd");
         if (msec >= 0) {
@@ -77,14 +82,14 @@ public class StringUtils {
                 if (minutes >= 60) {
                     long hour = minutes / 60;
                     if (hour <= 48) {
-                        result = hour+"小时前";
+                        result = hour + "小时前";
                     }
-                }else {
-                    result = minutes+"分钟前";
+                } else {
+                    result = minutes + "分钟前";
                 }
-            }else if(second > 0){
-                result = second+"秒前";
-            }else {
+            } else if (second > 3) {
+                result = second + "秒前";
+            } else {
                 result = "刚刚";
             }
         }
@@ -104,11 +109,11 @@ public class StringUtils {
         return format.format(d);
     }
 
-    public static String dataFormat(long time){
+    public static String dataFormat(long time) {
         return dataFormat(time, "yyyy-MM-dd HH:mm:ss");
     }
 
-    public static String dataFormat(long time, String format){
+    public static String dataFormat(long time, String format) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
         return dateFormat.format(time);
     }
@@ -126,7 +131,7 @@ public class StringUtils {
         return false;
     }
 
-    public static boolean hasChinese(String str){
+    public static boolean hasChinese(String str) {
         for (int i = 0; i < str.length(); i++) {
             if (isChineseChar(str.charAt(i))) {
                 return true;
@@ -135,7 +140,7 @@ public class StringUtils {
         return false;
     }
 
-    public static boolean isChinese(String str){
+    public static boolean isChinese(String str) {
         for (int i = 0; i < str.length(); i++) {
             if (!isChineseChar(str.charAt(i))) {
                 return false;

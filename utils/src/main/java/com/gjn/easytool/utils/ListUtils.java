@@ -1,5 +1,7 @@
 package com.gjn.easytool.utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,5 +22,7 @@ public class ListUtils {
         return list != null && list.size() > 1;
     }
 
-
+    public static List<String> str2List(String str, String split){
+        return Arrays.asList(str.split(split));
+    }
 }

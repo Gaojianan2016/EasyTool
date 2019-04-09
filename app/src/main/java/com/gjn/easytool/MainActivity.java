@@ -11,11 +11,14 @@ import android.widget.Toast;
 import com.gjn.easytool.logger.EasyLog;
 import com.gjn.easytool.toaster.EasyToast;
 import com.gjn.easytool.utils.QRUtils;
+import com.gjn.easytool.utils.ReflexUtils;
 import com.gjn.easytool.utils.StringUtils;
 import com.gjn.easytool.utils.ViewUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity {
     String json = "{\"code\": 0,\"data\": {\"content\": [" +
@@ -118,12 +121,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-            }
-        });
-        findViewById(R.id.btn2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 EasyToast.show(activity, "点击Toast", Toast.LENGTH_SHORT);
             }
         });
@@ -201,12 +198,61 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        findViewById(R.id.btn7).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ReflexUtils.printInfo(User.class);
+//                EasyLog.e("-----------------------");
+                User user = ReflexUtils.createObj(User.class,
+                        new Class[]{String.class, String.class, int.class},
+                        new Object[]{"王五", "女", 30});
+                if (user != null) {
+                    EasyLog.e(user.toString());
+                }
+
+                EasyLog.e("-----------------------");
+                user = ReflexUtils.createObj(User.class);
+                for (Field field : ReflexUtils.getDeclaredFields(user)) {
+                    switch (field.getName()) {
+                        case "name":
+                            ReflexUtils.setValue(user, field, "名称");
+                            break;
+                        case "sex":
+                            ReflexUtils.setValue(user, field, "性别");
+                            break;
+                        case "age":
+                            ReflexUtils.setValue(user, field, 18);
+                            break;
+                        case "m":
+                            ReflexUtils.setValue(user, field, true);
+                            break;
+                        case "f":
+                            ReflexUtils.setValue(user, field, 13.5f);
+                            break;
+                        case "d":
+                            ReflexUtils.setValue(user, field, 66.6);
+                            break;
+                        default:
+                    }
+                }
+                if (user != null) {
+                    EasyLog.e(user.toString());
+                }
+            }
+        });
     }
 
-    private class User {
+    public static class User {
         String name;
         String sex;
         int age;
+        boolean m;
+        float f;
+        double d;
+
+        public User() {
+        }
 
         public User(String name, String sex, int age) {
             this.name = name;
@@ -236,6 +282,42 @@ public class MainActivity extends AppCompatActivity {
 
         public void setAge(int age) {
             this.age = age;
+        }
+
+        public boolean isM() {
+            return m;
+        }
+
+        public void setM(boolean m) {
+            this.m = m;
+        }
+
+        public float getF() {
+            return f;
+        }
+
+        public void setF(float f) {
+            this.f = f;
+        }
+
+        public double getD() {
+            return d;
+        }
+
+        public void setD(double d) {
+            this.d = d;
+        }
+
+        @Override
+        public String toString() {
+            return "User{" +
+                    "name='" + name + '\'' +
+                    ", sex='" + sex + '\'' +
+                    ", age=" + age +
+                    ", m=" + m +
+                    ", f=" + f +
+                    ", d=" + d +
+                    '}';
         }
     }
 }

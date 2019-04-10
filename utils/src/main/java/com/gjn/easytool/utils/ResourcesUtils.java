@@ -1,7 +1,10 @@
 package com.gjn.easytool.utils;
 
+import android.app.Activity;
 import android.content.res.Resources;
-import android.support.v4.app.ActivityCompat;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * @author gjn
@@ -22,8 +25,20 @@ public class ResourcesUtils {
         return getInternal(name, "drawable");
     }
 
+    public static int getInternalColors(String name){
+        return getInternal(name, "colors");
+    }
+
     public static int getInternal(String name, String type){
         return Resources.getSystem().getIdentifier(name, type, "android");
+    }
+
+    public static View getView(Activity activity, int resource, ViewGroup root){
+        return getView(activity, resource, root, root != null);
+    }
+
+    public static View getView(Activity activity, int resource, ViewGroup root, boolean attachToRoot){
+        return LayoutInflater.from(activity).inflate(resource, root, attachToRoot);
     }
 
 }

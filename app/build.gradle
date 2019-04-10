@@ -30,4 +30,5 @@ dependencies {
     implementation project(':logger')
     implementation project(':toaster')
     implementation project(':utils')
+    implementation project(':dialoger')
 }

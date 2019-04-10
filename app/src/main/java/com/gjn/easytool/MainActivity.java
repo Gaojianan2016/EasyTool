@@ -1,13 +1,18 @@
 package com.gjn.easytool;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.gjn.easytool.dialoger.EasyDialogManager;
+import com.gjn.easytool.dialoger.base.BaseDialogFragment;
 import com.gjn.easytool.logger.EasyLog;
 import com.gjn.easytool.toaster.EasyToast;
 import com.gjn.easytool.utils.QRUtils;
@@ -87,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             "}";
     private Activity activity;
     private ImageView ivQr;
+    private EasyDialogManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         activity = this;
         ivQr = findViewById(R.id.iv_qr);
+        manager = new EasyDialogManager(this);
         click();
     }
 
@@ -210,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
                 if (user != null) {
                     EasyLog.e(user.toString());
                 }
-
                 EasyLog.e("-----------------------");
                 user = ReflexUtils.createObj(User.class);
                 for (Field field : ReflexUtils.getDeclaredFields(user)) {
@@ -238,6 +244,60 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (user != null) {
                     EasyLog.e(user.toString());
+                }
+            }
+        });
+        findViewById(R.id.btn8).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                manager.showAndroidDialog("提示", "默认Dialog", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        EasyToast.show(activity, "默认Dialog");
+                    }
+                });
+
+                manager.showEasyNormalDialog("EasyNormalDialog", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EasyToast.show(activity, "EasyNormalDialog");
+                    }
+                });
+
+                manager.showEasyOneBtnDialog("EasyOneBtnDialog", "确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EasyToast.show(activity, "EasyOneBtnDialog");
+                    }
+                });
+
+                manager.showEasyDelayDialog("EasyDelayDialog", 3, "确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EasyToast.show(activity, "EasyDelayDialog");
+                    }
+                });
+
+                manager.showEasyInputDialog("EasyInputDialog", "提交", 10, new EasyDialogManager.EasyInputListener() {
+                    @Override
+                    public void confirm(View v, Editable msg, int maxSize) {
+                        EasyToast.show(activity, "EasyInputDialog");
+                    }
+                });
+
+                manager.showSmallLoadingDialog();
+                manager.showMiddleLoadingDialog();
+                manager.showLargeLoadingDialog();
+                manager.showMiddleLoadingDialog();
+                manager.showSmallLoadingDialog();
+
+            }
+        });
+        findViewById(R.id.btn9).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (BaseDialogFragment dialogFragment : manager.getFragments()) {
+                    Log.e("-s-", "d = " + dialogFragment);
                 }
             }
         });

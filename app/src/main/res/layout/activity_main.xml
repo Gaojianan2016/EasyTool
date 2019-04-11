@@ -105,9 +105,31 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="测试"
+        android:text="获取dialog数组"
         android:textAllCaps="false"
         app:layout_constraintStart_toEndOf="@+id/btn8"
         app:layout_constraintTop_toBottomOf="@+id/btn5" />
+
+    <Button
+        android:id="@+id/btn10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="OkHttp"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn8" />
+
+    <Button
+        android:id="@+id/btn11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Retrofit"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/btn10"
+        app:layout_constraintTop_toBottomOf="@+id/btn9" />
 
 </android.support.constraint.ConstraintLayout>

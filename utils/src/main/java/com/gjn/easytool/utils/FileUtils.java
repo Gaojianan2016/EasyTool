@@ -42,13 +42,15 @@ public class FileUtils {
     }
 
     public static void deleteFile(File directory) {
-        if (directory != null && directory.exists() && directory.isDirectory()) {
-            String[] children = directory.list();
-            for (String child : children) {
-                deleteFile(new File(directory, child));
+        if (directory != null && directory.exists()) {
+            if (directory.isDirectory()) {
+                String[] children = directory.list();
+                for (String child : children) {
+                    deleteFile(new File(directory, child));
+                }
             }
+            directory.delete();
         }
-        directory.delete();
     }
 
     public static void deleteFile(String directoryPath) {
@@ -63,7 +65,6 @@ public class FileUtils {
 
     public static long getFileSize(File directory) {
         long size = 0;
-
         try {
             File[] files = directory.listFiles();
             for (File file : files) {

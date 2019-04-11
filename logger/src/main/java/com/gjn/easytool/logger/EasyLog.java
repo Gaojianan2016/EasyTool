@@ -24,6 +24,7 @@ public class EasyLog {
 
     public static final String HEAD = "╔══════════════════════════════════════════════════════════";
     public static final String BODY = "║ ";
+    public static final String LINE = "────────────────────────────────────────────────────────";
     public static final String FOOT = "╚══════════════════════════════════════════════════════════";
 
     public static boolean isDebug = true;

@@ -357,6 +357,22 @@ public class EasyDialogManager {
         return largeLoadingDialog;
     }
 
+    public void dismissSmallLoadingDialog(){
+        dismissDialog(smallLoadingDialog);
+    }
+
+    public void dismissMiddleLoadingDialog(){
+        dismissDialog(middleLoadingDialog);
+    }
+
+    public void dismissLargeLoadingDialog(){
+        dismissDialog(largeLoadingDialog);
+    }
+
+    public EasyDialogFragment showEasyLoadingDialog(int size) {
+        return showEasyLoadingDialog(BaseDialogFragment.DIMAMOUT, size);
+    }
+
     public EasyDialogFragment showEasyLoadingDialog(float dimAmout, final int size) {
         EasyDialogFragment dialogFragment = getEasyLoadingDialog(dimAmout, size);
         showDialog(dialogFragment);

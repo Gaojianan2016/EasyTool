@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/EasyTool.iml" filepath="$PROJECT_DIR$/EasyTool.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/dialoger/dialoger.iml" filepath="$PROJECT_DIR$/dialoger/dialoger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easymvp/easymvp.iml" filepath="$PROJECT_DIR$/easymvp/easymvp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easynet/easynet.iml" filepath="$PROJECT_DIR$/easynet/easynet.iml" />
       <module fileurl="file://$PROJECT_DIR$/logger/logger.iml" filepath="$PROJECT_DIR$/logger/logger.iml" />
       <module fileurl="file://$PROJECT_DIR$/toaster/toaster.iml" filepath="$PROJECT_DIR$/toaster/toaster.iml" />
       <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />

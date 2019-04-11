@@ -1,1 +1,1 @@
-include ':app', ':logger', ':utils', ':toaster', ':dialoger'
+include ':app', ':logger', ':utils', ':toaster', ':dialoger', ':easymvp', ':easynet'

@@ -41,4 +41,12 @@ public class ResourcesUtils {
         return LayoutInflater.from(activity).inflate(resource, root, attachToRoot);
     }
 
+    public static View getView(LayoutInflater inflater, int resource, ViewGroup root){
+        return inflater.inflate(resource, root, root != null);
+    }
+
+    public static View getView(LayoutInflater inflater, int resource, ViewGroup root, boolean attachToRoot){
+        return inflater.inflate(resource, root, attachToRoot);
+    }
+
 }

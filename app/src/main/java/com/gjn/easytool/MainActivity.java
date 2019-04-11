@@ -1,18 +1,18 @@
 package com.gjn.easytool;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.gjn.easytool.dialoger.EasyDialogManager;
 import com.gjn.easytool.dialoger.base.BaseDialogFragment;
+import com.gjn.easytool.easymvp.base.BaseMvpActivity;
+import com.gjn.easytool.easynet.DefaultInterceptor;
+import com.gjn.easytool.easynet.OkHttpManager;
+import com.gjn.easytool.easynet.RetrofitManager;
 import com.gjn.easytool.logger.EasyLog;
 import com.gjn.easytool.toaster.EasyToast;
 import com.gjn.easytool.utils.QRUtils;
@@ -23,9 +23,14 @@ import com.gjn.easytool.utils.ViewUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 
-public class MainActivity extends AppCompatActivity {
+import io.reactivex.functions.Consumer;
+import okhttp3.Call;
+import okhttp3.Response;
+
+public class MainActivity extends BaseMvpActivity {
     String json = "{\"code\": 0,\"data\": {\"content\": [" +
             "      {\n" +
             "\t\"id\": 1252," +
@@ -90,17 +95,21 @@ public class MainActivity extends AppCompatActivity {
             "    \"totalPages\": 2" +
             "  }" +
             "}";
-    private Activity activity;
     private ImageView ivQr;
-    private EasyDialogManager manager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        activity = this;
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initView() {
         ivQr = findViewById(R.id.iv_qr);
-        manager = new EasyDialogManager(this);
+    }
+
+    @Override
+    protected void initData() {
+        DefaultInterceptor.isDebug = BuildConfig.DEBUG;
         click();
     }
 
@@ -128,13 +137,13 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EasyToast.show(activity, "点击Toast", Toast.LENGTH_SHORT);
+                showToast("点击Toast");
             }
         });
         findViewById(R.id.btn3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EasyToast.showInfo(activity, "我是提示");
+                EasyToast.showInfo(mActivity, "我是提示");
             }
         });
         findViewById(R.id.btn4).setOnClickListener(new View.OnClickListener() {
@@ -186,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     Bitmap bitmap = QRUtils.str2bitmap("sn_20190404153301");
                     ivQr.setImageBitmap(bitmap);
-                    EasyToast.show(activity, "生成成功");
+                    showToast("生成成功");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -199,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     String code = QRUtils.bitmap2str(bitmap);
                     EasyLog.e(code);
-                    EasyToast.show(activity, "解析成功\n" + code);
+                    showToast("解析成功\n" + code);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -250,55 +259,103 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn8).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                manager.showAndroidDialog("提示", "默认Dialog", new DialogInterface.OnClickListener() {
+                mDialogManager.showAndroidDialog("提示", "默认Dialog", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        EasyToast.show(activity, "默认Dialog");
+                        showToast("默认Dialog");
                     }
                 });
 
-                manager.showEasyNormalDialog("EasyNormalDialog", new View.OnClickListener() {
+                mDialogManager.showEasyNormalDialog("EasyNormalDialog", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        EasyToast.show(activity, "EasyNormalDialog");
+                        showToast("EasyNormalDialog");
                     }
                 });
 
-                manager.showEasyOneBtnDialog("EasyOneBtnDialog", "确定", new View.OnClickListener() {
+                mDialogManager.showEasyOneBtnDialog("EasyOneBtnDialog", "确定", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        EasyToast.show(activity, "EasyOneBtnDialog");
+                        showToast("EasyOneBtnDialog");
                     }
                 });
 
-                manager.showEasyDelayDialog("EasyDelayDialog", 3, "确定", new View.OnClickListener() {
+                mDialogManager.showEasyDelayDialog("EasyDelayDialog", 3, "确定", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        EasyToast.show(activity, "EasyDelayDialog");
+                        showToast("EasyDelayDialog");
                     }
                 });
 
-                manager.showEasyInputDialog("EasyInputDialog", "提交", 10, new EasyDialogManager.EasyInputListener() {
+                mDialogManager.showEasyInputDialog("EasyInputDialog", "提交", 10, new EasyDialogManager.EasyInputListener() {
                     @Override
                     public void confirm(View v, Editable msg, int maxSize) {
-                        EasyToast.show(activity, "EasyInputDialog");
+                        showToast("EasyInputDialog");
                     }
                 });
 
-                manager.showSmallLoadingDialog();
-                manager.showMiddleLoadingDialog();
-                manager.showLargeLoadingDialog();
-                manager.showMiddleLoadingDialog();
-                manager.showSmallLoadingDialog();
+                mDialogManager.showSmallLoadingDialog();
+                mDialogManager.showMiddleLoadingDialog();
+                mDialogManager.showLargeLoadingDialog();
+                mDialogManager.showMiddleLoadingDialog();
+                mDialogManager.showSmallLoadingDialog();
 
             }
         });
         findViewById(R.id.btn9).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (BaseDialogFragment dialogFragment : manager.getFragments()) {
+                for (BaseDialogFragment dialogFragment : mDialogManager.getFragments()) {
                     Log.e("-s-", "d = " + dialogFragment);
                 }
+            }
+        });
+        findViewById(R.id.btn10).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OkHttpManager.getInstance().getAsyn("http://gank.io/api/data/福利/10/1", new okhttp3.Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                showToast("OkHttp访问失败");
+                            }
+                        });
+                        EasyLog.e("OkHttp访问失败" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                showToast("OkHttp访问成功");
+                            }
+                        });
+                        EasyLog.e("OkHttp访问成功");
+                    }
+                });
+            }
+        });
+        findViewById(R.id.btn11).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RetrofitManager.linkOnMainThread(
+                        RetrofitManager.create("http://gank.io/api/data/福利/", IUrl.class).getPic(1, 10),
+                        new Consumer<Pic>() {
+                            @Override
+                            public void accept(Pic pic) throws Exception {
+                                EasyLog.e("Retrofit访问成功");
+                                showToast("Retrofit访问成功");
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                EasyLog.e("Retrofit访问失败" + throwable.getMessage());
+                                showToast("Retrofit访问失败");
+                            }
+                        });
             }
         });
     }

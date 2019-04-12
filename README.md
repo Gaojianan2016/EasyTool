@@ -36,9 +36,11 @@ dependencies {
 ----------------
 
 ## 更新说明
-> 1.0.2
- easynet库 添加DownLoadManager管理类用于下载
- utils库 修改FileUtils 为打开7.0以上的文件加入provider
-<br>
-> 1.0.1-pre
- 预版本，正常可用
+**1.0.2**
+
+easynet库 添加DownLoadManager管理类用于下载
+utils库 修改FileUtils 为打开7.0以上的文件加入provider
+
+**1.0.1-pre**
+
+预版本，正常可用

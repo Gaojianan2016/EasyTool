@@ -40,12 +40,12 @@ public class StringUtils {
 
     public static String getSizeStr(long size) {
         String result;
-        if (size > 1024 * 1024 * 1024) {
-            result = doubleFormat(size / 1024 / 1024 / 1024) + "GB";
-        } else if (size > 1024 * 1024) {
-            result = doubleFormat(size / 1024 / 1024) + "MB";
-        } else if (size > 1024) {
-            result = doubleFormat(size / 1024) + "KB";
+        if (size >= 1024 * 1024 * 1024) {
+            result = doubleFormat(size / 1024 / 1024 / 1024.00) + "GB";
+        } else if (size >= 1024 * 1024) {
+            result = doubleFormat(size / 1024 / 1024.00) + "MB";
+        } else if (size >= 1024) {
+            result = doubleFormat(size / 1024.00) + "KB";
         } else {
             result = size + "B";
         }

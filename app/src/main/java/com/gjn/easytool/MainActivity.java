@@ -2,6 +2,7 @@ package com.gjn.easytool;
 
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
@@ -11,18 +12,22 @@ import com.gjn.easytool.dialoger.EasyDialogManager;
 import com.gjn.easytool.dialoger.base.BaseDialogFragment;
 import com.gjn.easytool.easymvp.base.BaseMvpActivity;
 import com.gjn.easytool.easynet.DefaultInterceptor;
+import com.gjn.easytool.easynet.DownLoadManager;
 import com.gjn.easytool.easynet.OkHttpManager;
 import com.gjn.easytool.easynet.RetrofitManager;
 import com.gjn.easytool.logger.EasyLog;
 import com.gjn.easytool.toaster.EasyToast;
+import com.gjn.easytool.utils.FileUtils;
 import com.gjn.easytool.utils.QRUtils;
 import com.gjn.easytool.utils.ReflexUtils;
 import com.gjn.easytool.utils.StringUtils;
 import com.gjn.easytool.utils.ViewUtils;
+import com.gjn.permissionlibrary.PermissionUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
@@ -96,6 +101,7 @@ public class MainActivity extends BaseMvpActivity {
             "  }" +
             "}";
     private ImageView ivQr;
+    private String url = "http://static.gumiss.com/upload/apk/shoumi_latest.apk";
 
     @Override
     protected int getLayoutId() {
@@ -111,6 +117,15 @@ public class MainActivity extends BaseMvpActivity {
     protected void initData() {
         DefaultInterceptor.isDebug = BuildConfig.DEBUG;
         click();
+
+        PermissionUtils.requestPermissions(mActivity, 0x111, PermissionUtils.PERMISSION_WRITE_EXTERNAL_STORAGE,
+                PermissionUtils.PERMISSION_READ_EXTERNAL_STORAGE);
+
+        EasyLog.e(mContext.getFilesDir().getPath());
+        EasyLog.e(mContext.getCacheDir().getPath());
+        EasyLog.e(mContext.getExternalCacheDir().getPath());
+        EasyLog.e(mContext.getExternalFilesDir(Environment.DIRECTORY_MUSIC).getPath());
+        EasyLog.e(Environment.getExternalStorageDirectory().getPath());
     }
 
     private void click() {
@@ -356,6 +371,34 @@ public class MainActivity extends BaseMvpActivity {
                                 showToast("Retrofit访问失败");
                             }
                         });
+            }
+        });
+        findViewById(R.id.btn12).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String path = "/sdcard/";
+                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+                    path = Environment.getExternalStorageDirectory().getPath() + "/";
+                }
+                DownLoadManager.getInstance().download(url, path, new DownLoadManager.OnDownLoadListener() {
+
+                    @Override
+                    public void success(File file) {
+                        EasyLog.e("下载成功");
+                        FileUtils.openFile(mActivity, file);
+                    }
+
+                    @Override
+                    public void fail() {
+                        EasyLog.e("下载失败");
+                    }
+                });
+            }
+        });
+        findViewById(R.id.btn13).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DownLoadManager.getInstance().downloadCancel();
             }
         });
     }

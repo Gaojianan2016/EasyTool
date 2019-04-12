@@ -3,6 +3,8 @@ package com.gjn.easytool.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
@@ -17,6 +19,8 @@ import java.io.File;
 public class FileUtils {
     private static final String TAG = "FileUtils";
 
+    private static final String FILEPROVIDER = ".fileprovider";
+
     public static void openFile(Context context, String filePath) {
         File file = new File(filePath);
         openFile(context, file);
@@ -27,7 +31,14 @@ public class FileUtils {
         Uri uri = Uri.fromFile(file);
         if (mimeType != null) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                uri = FileProvider.getUriForFile(context, context.getPackageName() + FILEPROVIDER, file);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }else {
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
             intent.setDataAndType(uri, mimeType);
             context.startActivity(intent);
         }

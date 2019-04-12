@@ -31,7 +31,7 @@ dependencies {
     implementation 'com.github.Gaojianan2016.EasyTool:utils:x.y.z'
 }
 ```
-==x.y.z请根据jitpack取值==
+**x.y.z请根据jitpack取值**
 
 ----------------
 
@@ -39,5 +39,6 @@ dependencies {
 > 1.0.2
  easynet库 添加DownLoadManager管理类用于下载
  utils库 修改FileUtils 为打开7.0以上的文件加入provider
+<br>
 > 1.0.1-pre
  预版本，正常可用

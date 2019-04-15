@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.gjn.easytool.fileprovider"
@@ -30,6 +30,14 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <activity android:name=".ui.ToastActivity" />
+        <activity android:name=".ui.LoggerActivity" />
+        <activity android:name=".ui.DialogActivity" />
+        <activity android:name=".ui.QrcodeActivity" />
+        <activity android:name=".ui.NetActivity" />
+        <activity android:name=".ui.ReflexActivity" />
+        <activity android:name=".ui.StringActivity" />
     </application>
 
 </manifest>

@@ -8,11 +8,12 @@ import android.text.TextUtils;
  */
 
 public class JsonUtils {
-    public static String formatString(String json){
+
+    public static String formatString(String json) {
         return formatString("", json);
     }
 
-    public static String formatString(String tab, String json){
+    public static String formatString(String tab, String json) {
         if (TextUtils.isEmpty(json)) {
             return "";
         }

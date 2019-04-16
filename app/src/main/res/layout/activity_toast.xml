@@ -79,7 +79,7 @@
         android:layout_marginTop="8dp"
         android:text="等待"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/button5" />
 
     <Button
         android:id="@+id/button8"

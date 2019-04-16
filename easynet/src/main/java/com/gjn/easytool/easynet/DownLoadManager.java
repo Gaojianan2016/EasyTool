@@ -27,15 +27,13 @@ import okhttp3.Response;
 public class DownLoadManager {
     private static final String TAG = "DownLoadManager";
 
-    private static final String LENGHT = "Content-Length";
-
     public static final String SDCARD = "/sdcard/";
+    private static final String LENGHT = "Content-Length";
 
     private static OkHttpClient okHttpClient;
     private static DownLoadManager downLoadManager;
-    private Call call;
 
-    private DownLoadManager(){
+    private DownLoadManager() {
         if (okHttpClient == null) {
             okHttpClient = new OkHttpClient.Builder()
                     .readTimeout(30, TimeUnit.SECONDS)
@@ -55,11 +53,11 @@ public class DownLoadManager {
         return downLoadManager;
     }
 
-    public static void setOkHttpClient(OkHttpClient client){
+    public static void setOkHttpClient(OkHttpClient client) {
         okHttpClient = client;
     }
 
-    public void download(String url, final OnDownLoadListener listener){
+    public void download(String url, final OnDownLoadListener listener) {
         String path = SDCARD;
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             path = Environment.getExternalStorageDirectory().getPath() + "/";
@@ -67,11 +65,11 @@ public class DownLoadManager {
         download(url, path, listener);
     }
 
-    public void download(String url, String path, final OnDownLoadListener listener){
+    public void download(String url, String path, final OnDownLoadListener listener) {
         download(url, path, null, listener);
     }
 
-    public void download(String url, String path, String name, final OnDownLoadListener listener){
+    public void download(String url, String path, String name, final OnDownLoadListener listener) {
         if (TextUtils.isEmpty(name)) {
             Uri uri = Uri.parse(url);
             name = uri.getLastPathSegment();
@@ -92,45 +90,39 @@ public class DownLoadManager {
             if (file.createNewFile()) {
                 EasyLog.i(TAG, "create new file " + file.getName());
             }
-        }catch (Exception e){
-            listener.error(e);
+        } catch (Exception e) {
+            EasyLog.e(TAG, "create file fail " + e.getMessage());
         }
         EasyLog.i(TAG, "download start " + url);
 
-        call = okHttpClient.newCall(new Request.Builder().url(url).build());
-        call.enqueue(new Callback() {
+        okHttpClient.newCall(new Request.Builder().url(url).build())
+                .enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         EasyLog.w(TAG, "download file fail. " + e.getMessage());
-                        listener.fail();
-                        listener.error(e);
+                        listener.fail(call);
+                        listener.error(call, e);
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        if (downloadStream(response, file, listener)) {
-                            listener.success(file);
-                        }else {
-                            listener.fail();
+                        if (downloadStream(call, response, file, listener)) {
+                            listener.success(call, file);
+                        } else {
+                            listener.fail(call);
                         }
                     }
                 });
     }
 
-    public void downloadCancel(){
-        if (call != null) {
-            call.cancel();
-        }
-    }
-
-    private boolean downloadStream(Response response, File file, OnDownLoadListener listener) {
+    private boolean downloadStream(Call call, Response response, File file, OnDownLoadListener listener) {
         int lenght = Integer.parseInt(response.header(LENGHT));
         InputStream is = null;
         FileOutputStream fos = null;
         byte[] buf = new byte[setStreamBtye(lenght)];
         int len;
         int readStream = 0;
-        listener.start(file, file.getName(), lenght);
+        listener.start(call, file, file.getName(), lenght);
         try {
             EasyLog.i(TAG, "stream start write file. lenght = " + lenght + "->" + StringUtils.getSizeStr(lenght));
             is = response.body().byteStream();
@@ -138,16 +130,21 @@ public class DownLoadManager {
             while ((len = is.read(buf)) != -1) {
                 fos.write(buf, 0, len);
                 readStream += len;
-                listener.loading(readStream);
+                listener.loading(call, readStream, lenght);
             }
             fos.flush();
-            listener.end();
-            EasyLog.i(TAG, "stream write file success.");
+            listener.end(call);
+            EasyLog.i(TAG, "write file success.");
             return true;
-        }catch (Exception e){
-            EasyLog.w(TAG, "stream write file error. " +e.getMessage());
-            listener.error(e);
-        }finally {
+        } catch (Exception e) {
+            EasyLog.w(TAG, "stream write file error. " + e.getMessage());
+            if (file.exists()) {
+                if (file.delete()) {
+                    EasyLog.i(TAG, "delete file " + file.getName());
+                }
+            }
+            listener.error(call, e);
+        } finally {
             try {
                 if (is != null) {
                     is.close();
@@ -155,12 +152,12 @@ public class DownLoadManager {
                 if (fos != null) {
                     fos.close();
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        listener.end();
-        EasyLog.i(TAG, "stream write file fail.");
+        listener.end(call);
+        EasyLog.i(TAG, "write file fail.");
         return false;
     }
 
@@ -168,15 +165,15 @@ public class DownLoadManager {
         int result;
         if (lenght > 1024 * 1024 * 1024) {
             result = 1024 * 1024 * 50;
-        } else if(lenght > 1024 * 1024 * 512){
+        } else if (lenght > 1024 * 1024 * 512) {
             result = 1024 * 1024 * 30;
-        } else if(lenght > 1024 * 1024 * 100){
+        } else if (lenght > 1024 * 1024 * 100) {
             result = 1024 * 1024 * 10;
-        } else if(lenght > 1024 * 1024 * 10){
+        } else if (lenght > 1024 * 1024 * 10) {
             result = 1024 * 1024;
-        } else if(lenght > 1024 * 1024){
+        } else if (lenght > 1024 * 1024) {
             result = 1024 * 512;
-        } else{
+        } else {
             result = 1024;
         }
         EasyLog.i(TAG, "readBuff " + StringUtils.getSizeStr(result));
@@ -184,22 +181,22 @@ public class DownLoadManager {
     }
 
     public static abstract class OnDownLoadListener {
-        public void start(File file, String name, int lenght){
+        public void start(Call call, File file, String name, int lenght) {
         }
 
-        public void loading(int readStream){
+        public void loading(Call call, int readStream, int allStream) {
         }
 
-        public void success(File file){
+        public void success(Call call, File file) {
         }
 
-        public void fail(){
+        public void fail(Call call) {
         }
 
-        public void error(Throwable tr){
+        public void error(Call call, Throwable tr) {
         }
 
-        public void end(){
+        public void end(Call call) {
         }
     }
 }

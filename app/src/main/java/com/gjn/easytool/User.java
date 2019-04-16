@@ -73,14 +73,6 @@ public class User {
         public void setIsStudent(boolean isStudent) {
             this.isStudent = isStudent;
         }
-
-        @Override
-        public String toString() {
-            return "InfoBean{" +
-                    "phone='" + phone + '\'' +
-                    ", isStudent=" + isStudent +
-                    '}';
-        }
     }
 
     @Override
@@ -89,7 +81,7 @@ public class User {
                 "name='" + name + '\'' +
                 ", sex='" + sex + '\'' +
                 ", age=" + age +
-                ", info=" + info.toString() +
+                ", info=" + info +
                 '}';
     }
 }

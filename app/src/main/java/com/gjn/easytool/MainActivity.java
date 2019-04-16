@@ -15,7 +15,6 @@ import com.gjn.permissionlibrary.PermissionUtils;
 
 public class MainActivity extends BaseMvpActivity {
 
-    private String url = "http://static.gumiss.com/upload/apk/shoumi_latest.apk";
 
     @Override
     protected int getLayoutId() {
@@ -57,13 +56,13 @@ public class MainActivity extends BaseMvpActivity {
         findViewById(R.id.btn4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showNext(ReflexActivity.class);
+                showNext(QrcodeActivity.class);
             }
         });
         findViewById(R.id.btn5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showNext(QrcodeActivity.class);
+                showNext(ReflexActivity.class);
             }
         });
         findViewById(R.id.btn6).setOnClickListener(new View.OnClickListener() {

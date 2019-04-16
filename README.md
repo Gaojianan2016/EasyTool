@@ -1,5 +1,5 @@
 # EasyTool
-[![](https://jitpack.io/v/Gaojianan2016/EasyTool.svg)](https://jitpack.io/#Gaojianan2016/EasyTool) [![](https://img.shields.io/badge/platform-android-brightgreen.svg)](https://developer.android.com/index.html) [![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19) [![Version](https://img.shields.io/badge/Android%20Studio-3.0.1-brightgreen.svg)](https://img.shields.io/badge/Android%20Studio-3.0.1-brightgreen.svg) [![minSdkVersion](https://img.shields.io/badge/minSdkVersion-19-green.svg)](https://img.shields.io/badge/minSdkVersion-19-green.svg) [![targetSdkVersion](https://img.shields.io/badge/targetSdkVersion-27-orange.svg)](https://img.shields.io/badge/targetSdkVersion-27-orange.svg)
+[![](https://jitpack.io/v/Gaojianan2016/EasyTool.svg)](https://jitpack.io/#Gaojianan2016/EasyTool) [![](https://img.shields.io/badge/platform-android-brightgreen.svg)](https://developer.android.com/index.html) [![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19) [![Version](https://img.shields.io/badge/Android%20Studio-3.0.1-brightgreen.svg)](https://img.shields.io/badge/Android%20Studio-3.0.1-brightgreen.svg)
 
 <br>
 
@@ -36,7 +36,7 @@ dependencies {
 ----------------
 
 ## Demo说明
-
+![首页](https://github.com/Gaojianan2016/EasyTool/blob/master/%E8%B5%84%E6%BA%90/demoMain.png)
 
 ----------------
 

@@ -15,7 +15,6 @@ import com.gjn.permissionlibrary.PermissionUtils;
 
 public class MainActivity extends BaseMvpActivity {
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
+import java.util.regex.Pattern;
 
 /**
  * FileUtils
@@ -44,12 +45,29 @@ public class FileUtils {
         }
     }
 
+    public static boolean isFileName(String value){
+        Pattern pattern = Pattern.compile(".+[.]\\D.+");
+        return pattern.matcher(value).find();
+    }
+
     public static String getSuffix(File file) {
-        return file.getName().substring(file.getName().lastIndexOf(".") + 1);
+        return getSuffix(file.getName());
+    }
+
+    public static String getSuffix(String name) {
+        return name.substring(name.lastIndexOf(".") + 1);
     }
 
     public static String getTypeFromSuffix(File file) {
-        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(getSuffix(file));
+        return getTypeFromSuffix(getSuffix(file));
+    }
+
+    public static String getTypeFromSuffix(String suffix) {
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(suffix);
+    }
+
+    public static String getSuffixFromType(String type) {
+        return MimeTypeMap.getSingleton().getExtensionFromMimeType(type);
     }
 
     public static void deleteFile(File directory) {

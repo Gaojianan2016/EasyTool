@@ -32,7 +32,7 @@ public class NetActivity extends BaseMvpActivity {
 
     ProgressBar progressBar;
     Call Call;
-    private String downloadUrl = "http://static.gumiss.com/upload/apk/shoumi_latest.apk";
+    private String downloadUrl = "https://github.com/Gaojianan2016/EasyTool/blob/master/资源/app.apk";
     private String imgUrl = "http://gank.io/api/data/福利/";
 
     @Override

@@ -1,5 +1,6 @@
 package com.gjn.easytool.easynet;
 
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
@@ -61,33 +62,53 @@ public class DownLoadManager {
         okHttpClient = client;
     }
 
-    public void download(String url, final OnDownLoadListener listener) {
-        String path = SDCARD;
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            path = Environment.getExternalStorageDirectory().getPath() + "/";
-        }
-        download(url, path, listener);
+    public void download(String url, OnDownLoadListener listener) {
+        download(url, getDefaultPath(), listener);
     }
 
-    public void download(String url, String path, final OnDownLoadListener listener) {
+    public void download(String url, String path, OnDownLoadListener listener) {
         download(url, path, null, listener);
     }
 
-    public void download(final String url, final String path, final String name, final OnDownLoadListener listener) {
+    public void download(String url, String path, String name, OnDownLoadListener listener) {
+        downloadOnUI(null, url, path, name, listener);
+    }
+
+    public void downloadOnUI(Activity activity, String url, OnDownLoadListener listener) {
+        downloadOnUI(activity, url, getDefaultPath(), listener);
+    }
+
+    public void downloadOnUI(Activity activity, String url, String path, OnDownLoadListener listener) {
+        downloadOnUI(activity, url, path, null, listener);
+    }
+
+    /***
+     * 新增直接结果返回跳到ui线程，只对最后的结果有效success和fail，其他结果还是在io线程
+     */
+    public void downloadOnUI(final Activity activity, final String url, final String path, final String name, final OnDownLoadListener listener){
         EasyLog.i(TAG, "download start " + url);
         okHttpClient.newCall(new Request.Builder().url(url).build())
                 .enqueue(new Callback() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
+                    public void onFailure(final Call call, final IOException e) {
                         EasyLog.w(TAG, "download file fail. " + e.getMessage());
-                        listener.fail(call);
+                        if (activity != null) {
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    listener.fail(call);
+                                }
+                            });
+                        }else {
+                            listener.fail(call);
+                        }
                         listener.error(call, e);
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onResponse(final Call call, final Response response) throws IOException {
                         File filePath = new File(path);
-                        File file = new File(path, getUrlFileName(url, name, response));
+                        final File file = new File(path, getUrlFileName(url, name, response));
                         try {
                             if (!filePath.exists()) {
                                 if (filePath.mkdirs()) {
@@ -105,13 +126,39 @@ public class DownLoadManager {
                         } catch (Exception e) {
                             EasyLog.e(TAG, "create file fail " + e.getMessage());
                         }
-                        if (downloadStream(call, response, file, listener)) {
-                            listener.success(call, file);
-                        } else {
-                            listener.fail(call);
+                        if (activity != null) {
+                            if (downloadStream(call, response, file, listener)) {
+                                activity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        listener.success(call, file);
+                                    }
+                                });
+                            } else {
+                                activity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        listener.fail(call);
+                                    }
+                                });
+                            }
+                        }else {
+                            if (downloadStream(call, response, file, listener)) {
+                                listener.success(call, file);
+                            } else {
+                                listener.fail(call);
+                            }
                         }
                     }
                 });
+    }
+
+    private String getDefaultPath() {
+        String path = SDCARD;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            path = Environment.getExternalStorageDirectory().getPath() + "/";
+        }
+        return path;
     }
 
     private String getUrlFileName(String url, String name, Response response) {
@@ -119,6 +166,7 @@ public class DownLoadManager {
         try {
             type = response.header(TYPE);
         } catch (Exception e) {
+            EasyLog.w(TAG, "url no type. " + e.getMessage());
         }
         if (TextUtils.isEmpty(name)) {
             Uri uri = Uri.parse(url);

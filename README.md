@@ -657,6 +657,10 @@ public class ReflexActivity extends BaseMvpActivity{
 ----------------
 
 ## 更新说明
+**1.0.4**
+```
+easynet库 修改DownLoadManager管理类新增downloadOnUI方法，传入Activity可以让最后的结果转为UI线程。
+```
 **1.0.3**
 ```
 easynet库 修改DownLoadManager管理类停止下载接口,修复某些条件下载无后缀bug，目前只做了单例模式（既单一下载管理，多下载后续加入）

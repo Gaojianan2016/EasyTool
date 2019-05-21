@@ -71,7 +71,7 @@ public class DefaultInterceptor implements Interceptor {
             }
         }
         log(printRequest(request) + "\n" + printResponse(response, startTime));
-        log(printResponseBody(response));
+        log(request.url() + "\n" + printResponseBody(response));
         return response;
     }
 

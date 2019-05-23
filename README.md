@@ -31,7 +31,7 @@ dependencies {
     implementation 'com.github.Gaojianan2016.EasyTool:utils:x.y.z'
 }
 ```
-**x.y.z请根据jitpack取值**
+**x.y.z请根据jitpack取值 请取1.0.6之后的版本**
 
 ----------------
 

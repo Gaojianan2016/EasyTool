@@ -14,7 +14,7 @@ public abstract class BaseMvpFragment<P extends BasePresenter> extends BaseFragm
     @Override
     protected void init() {
         super.init();
-        mvpBindAnnotations = MvpBindAnnotations.newInstance(mActivity);
+        mvpBindAnnotations = MvpBindAnnotations.newInstance(mActivity, mFragment);
     }
 
     protected P getPresenter() {

@@ -657,6 +657,10 @@ public class ReflexActivity extends BaseMvpActivity{
 ----------------
 
 ## 更新说明
+**1.0.5**（之前的版本存在致命bug Fragment和Activity无法同时存在会崩溃）
+```
+easymvp 修改Fragment和Activity无法同时存在会崩溃bug。
+```
 **1.0.4**
 ```
 easynet库 修改DownLoadManager管理类新增downloadOnUI方法，传入Activity可以让最后的结果转为UI线程。

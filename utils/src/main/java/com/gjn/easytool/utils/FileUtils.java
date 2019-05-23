@@ -32,6 +32,17 @@ public class FileUtils {
         Uri uri = Uri.fromFile(file);
         if (mimeType != null) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setDataAndType(uri, mimeType);
+            context.startActivity(intent);
+        }
+    }
+
+    public static void openFileApi24(Context context, File file) {
+        String mimeType = getTypeFromSuffix(file);
+        Uri uri = Uri.fromFile(file);
+        if (mimeType != null) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 uri = FileProvider.getUriForFile(context, context.getPackageName() + FILEPROVIDER, file);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK

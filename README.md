@@ -657,6 +657,10 @@ public class ReflexActivity extends BaseMvpActivity{
 ----------------
 
 ## 更新说明
+**1.0.7**
+```
+easytool FileUtils修改打开文件方法默认使用7.0以前的打开方式，新增方法openFileApi24用来调用7.0之后的方式打开
+```
 **1.0.6**（之前的版本存在致命bug 绑定mvp模式崩溃）
 ```
 easymvp 修改绑定mvp模式崩溃bug。

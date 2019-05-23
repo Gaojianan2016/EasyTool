@@ -22,6 +22,15 @@ public class AnnotationsUtils {
         return false;
     }
 
+    public static boolean checkAnnotations(Field field, Class<? extends Annotation> annotationCls){
+        if (field.getAnnotations() != null) {
+            if (field.isAnnotationPresent(annotationCls)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static <T extends Annotation> T getAnnotations(Object obj, Class<T> annotationCls){
         if (checkAnnotations(obj, annotationCls)) {
             return obj.getClass().getAnnotation(annotationCls);

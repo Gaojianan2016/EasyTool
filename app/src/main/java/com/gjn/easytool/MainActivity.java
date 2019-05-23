@@ -6,6 +6,7 @@ import com.gjn.easytool.easymvp.base.BaseMvpActivity;
 import com.gjn.easytool.easynet.DefaultInterceptor;
 import com.gjn.easytool.ui.DialogActivity;
 import com.gjn.easytool.ui.LoggerActivity;
+import com.gjn.easytool.ui.MvpActivity;
 import com.gjn.easytool.ui.NetActivity;
 import com.gjn.easytool.ui.QrcodeActivity;
 import com.gjn.easytool.ui.ReflexActivity;
@@ -74,6 +75,12 @@ public class MainActivity extends BaseMvpActivity {
             @Override
             public void onClick(View v) {
                 showNext(NetActivity.class);
+            }
+        });
+        findViewById(R.id.btn8).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNext(MvpActivity.class);
             }
         });
     }

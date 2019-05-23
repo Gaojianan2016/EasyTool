@@ -657,7 +657,12 @@ public class ReflexActivity extends BaseMvpActivity{
 ----------------
 
 ## 更新说明
-**1.0.5**（之前的版本存在致命bug Fragment和Activity无法同时存在会崩溃）
+**1.0.6**（之前的版本存在致命bug 绑定mvp模式崩溃）
+```
+easymvp 修改绑定mvp模式崩溃bug。
+easytool AnnotationsUtils新增checkAnnotations(Field field, Class<? extends Annotation> annotationCls)方法
+```
+**1.0.5**
 ```
 easymvp 修改Fragment和Activity无法同时存在会崩溃bug。
 ```

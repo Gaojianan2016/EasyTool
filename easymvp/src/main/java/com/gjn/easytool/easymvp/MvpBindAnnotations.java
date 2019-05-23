@@ -2,6 +2,7 @@ package com.gjn.easytool.easymvp;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.gjn.easytool.easymvp.Interface.IMvpView;
 import com.gjn.easytool.easymvp.base.BasePresenter;
@@ -38,16 +39,12 @@ public class MvpBindAnnotations {
         if (fragment != null) {
             this.fragment = fragment;
             object = fragment;
-            EasyLog.d(TAG, "bind fragment.");
+            EasyLog.d(TAG, "bind " + fragment.getClass().getSimpleName());
         } else {
-            EasyLog.d(TAG, "bind activity.");
+            EasyLog.d(TAG, "bind " + activity.getClass().getSimpleName());
         }
-        if (presenterMap == null) {
-            presenterMap = new HashMap<>();
-        }
-        if (presenters == null) {
-            presenters = new ArrayList<>();
-        }
+        presenterMap = new HashMap<>();
+        presenters = new ArrayList<>();
         savePresenters();
         bindPresenter();
         attachedPresenter();
@@ -87,6 +84,7 @@ public class MvpBindAnnotations {
             String name = field.getType().getName();
             BasePresenter bp = presenterMap.get(name);
             if (bp != null) {
+                EasyLog.d(TAG, "┗━━━━" + field.getType().getSimpleName() + "->" + field.getName());
                 ReflexUtils.setField(object, field, bp);
             }
         }

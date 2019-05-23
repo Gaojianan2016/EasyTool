@@ -1,6 +1,7 @@
 package com.gjn.easytool.easymvp.base;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.gjn.easytool.easymvp.Interface.IMvpModel;
 import com.gjn.easytool.easymvp.Interface.IMvpPresenter;

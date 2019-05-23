@@ -38,6 +38,7 @@
         <activity android:name=".ui.NetActivity" />
         <activity android:name=".ui.ReflexActivity" />
         <activity android:name=".ui.StringActivity" />
+        <activity android:name=".ui.MvpActivity" />
     </application>
 
 </manifest>

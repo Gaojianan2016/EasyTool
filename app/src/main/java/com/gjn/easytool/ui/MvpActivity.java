@@ -69,7 +69,6 @@ public class MvpActivity extends BaseMvpActivity implements TestMvpContract.view
         });
     }
 
-
     @Override
     public void success() {
         showToast("点击成功");

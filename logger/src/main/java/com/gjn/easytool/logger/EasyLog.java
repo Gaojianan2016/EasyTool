@@ -27,12 +27,7 @@ public class EasyLog {
     public static final String LINE = "────────────────────────────────────────────────────────";
     public static final String FOOT = "╚══════════════════════════════════════════════════════════";
 
-    public static boolean isDebug = true;
-
     private static void println(int level, String tag, String msg, Throwable tr) {
-        if (!isDebug) {
-            return;
-        }
         switch (level) {
             case LEVEL_WTF:
                 Log.wtf(tag, msg, tr);

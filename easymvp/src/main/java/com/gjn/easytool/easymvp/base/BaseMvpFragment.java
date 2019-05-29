@@ -33,8 +33,10 @@ public abstract class BaseMvpFragment<P extends BasePresenter> extends BaseFragm
 
     @Override
     public void showProgress(boolean isShow) {
-        if (mActivity instanceof BaseMvpActivity) {
-            ((BaseMvpActivity) mActivity).showProgress(isShow);
+        if (isShow) {
+            mDialogManager.showMiddleLoadingDialog();
+        } else {
+            mDialogManager.dismissMiddleLoadingDialog();
         }
     }
 

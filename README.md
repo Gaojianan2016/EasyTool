@@ -657,6 +657,11 @@ public class ReflexActivity extends BaseMvpActivity{
 ----------------
 
 ## 更新说明
+**1.0.8**
+```
+easymvp 修改Fragment的EasyDialogManager相关操作，防止多次调用dialog显示隐藏可能会崩溃（最好还是自己控制显示隐藏dialog）
+dialoger 新增获得默认三个进度框的方法
+```
 **1.0.7**
 ```
 easytool FileUtils修改打开文件方法默认使用7.0以前的打开方式，新增方法openFileApi24用来调用7.0之后的方式打开

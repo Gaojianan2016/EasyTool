@@ -39,10 +39,6 @@ public class ActivityUtils {
         activity.startActivity(intent);
     }
 
-    public static void showNext(Activity activity, Object obj){
-
-    }
-
     private static void printLog(Activity activity, Class cls) {
         if (isDebug) {
             Log.d(TAG, activity.getClass().getSimpleName() + " open " + cls.getSimpleName());

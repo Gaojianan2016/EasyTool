@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gjn.easytool.dialoger.EasyDialogManager;
 import com.gjn.easytool.dialoger.base.BaseDialogFragment;
 import com.gjn.easytool.easymvp.Interface.IUIEvent;
 import com.gjn.easytool.toaster.EasyToast;
@@ -27,6 +28,7 @@ public abstract class BaseFragment extends Fragment implements IUIEvent {
     protected Activity mActivity;
     protected Bundle mBundle;
     protected View mView;
+    protected EasyDialogManager mDialogManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public abstract class BaseFragment extends Fragment implements IUIEvent {
         mFragment = this;
         mActivity = getActivity();
         mBundle = getArguments() == null ? new Bundle() : getArguments();
+        mDialogManager = new EasyDialogManager(this);
     }
 
     @Nullable
@@ -93,29 +96,21 @@ public abstract class BaseFragment extends Fragment implements IUIEvent {
 
     @Override
     public void showDialog(BaseDialogFragment dialogFragment) {
-        if (mActivity instanceof BaseActivity) {
-            ((BaseActivity) mActivity).showDialog(dialogFragment);
-        }
+        mDialogManager.showDialog(dialogFragment);
     }
 
     @Override
     public void dismissDialog(BaseDialogFragment dialogFragment) {
-        if (mActivity instanceof BaseActivity) {
-            ((BaseActivity) mActivity).dismissDialog(dialogFragment);
-        }
+        mDialogManager.dismissDialog(dialogFragment);
     }
 
     @Override
     public void showOnlyDialog(BaseDialogFragment dialogFragment) {
-        if (mActivity instanceof BaseActivity) {
-            ((BaseActivity) mActivity).showOnlyDialog(dialogFragment);
-        }
+        mDialogManager.showOnlyDialog(dialogFragment);
     }
 
     @Override
     public void dismissAll() {
-        if (mActivity instanceof BaseActivity) {
-            ((BaseActivity) mActivity).dismissAll();
-        }
+        mDialogManager.clearDialog();
     }
 }

@@ -7,6 +7,6 @@ import android.support.v4.app.DialogFragment;
  * @time 2019/4/10 10:19
  */
 
-public interface IDialogDismissListener {
-    void onDismiss(DialogFragment dialogFragment);
+public interface IDialogCancelListener {
+    void onCancel(DialogFragment dialogFragment);
 }

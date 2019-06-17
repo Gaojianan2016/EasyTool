@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,8 @@ public abstract class BaseDialogFragment extends DialogFragment implements IDial
     private int height = WRAP_CONTENT;
     private int gravity = Gravity.CENTER;
 
-    private IDialogDismissListener mDialogDismissListener;
-    private List<IDialogDismissListener> mDialogDismissListeners;
+    private IDialogCancelListener mDialogCancelListener;
+    private List<IDialogCancelListener> mDialogCancelListeners;
 
     public abstract AlertDialog.Builder getDialogBuilder();
 
@@ -92,14 +93,14 @@ public abstract class BaseDialogFragment extends DialogFragment implements IDial
     }
 
     @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        if (mDialogDismissListener != null) {
-            mDialogDismissListener.onDismiss(this);
+    public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+        if (mDialogCancelListener != null) {
+            mDialogCancelListener.onCancel(this);
         }
-        if (mDialogDismissListeners != null) {
-            for (IDialogDismissListener listener : mDialogDismissListeners) {
-                listener.onDismiss(this);
+        if (mDialogCancelListeners != null) {
+            for (IDialogCancelListener listener : mDialogCancelListeners) {
+                listener.onCancel(this);
             }
         }
     }
@@ -126,20 +127,20 @@ public abstract class BaseDialogFragment extends DialogFragment implements IDial
         }
     }
 
-    public void setOnDialogDismissListener(IDialogDismissListener listener) {
-        mDialogDismissListener = listener;
+    public void setOnDialogCancelListener(IDialogCancelListener listener) {
+        mDialogCancelListener = listener;
     }
 
-    public void addOnDialogDismissListener(IDialogDismissListener listener) {
-        if (mDialogDismissListeners == null) {
-            mDialogDismissListeners = new ArrayList<>();
+    public void addOnDialogCancelListener(IDialogCancelListener listener) {
+        if (mDialogCancelListeners == null) {
+            mDialogCancelListeners = new ArrayList<>();
         }
-        mDialogDismissListeners.add(listener);
+        mDialogCancelListeners.add(listener);
     }
 
-    public void clearOnDialogDismissListeners() {
-        if (mDialogDismissListeners != null) {
-            mDialogDismissListeners.clear();
+    public void clearOnDialogCancelListeners() {
+        if (mDialogCancelListeners != null) {
+            mDialogCancelListeners.clear();
         }
     }
 

@@ -657,13 +657,17 @@ public class ReflexActivity extends BaseMvpActivity{
 ----------------
 
 ## 更新说明
+**1.0.9**
+```
+easymvp 修复onDestroy可能崩溃bug，由于mDialogManager.clearDialog()调用在super之后的原因
+dialoger 将onDismiss的监听去除，还是使用onCancel监听，防止多次调用dialogFragment崩溃
+```
 **1.0.8**
 ```
 easymvp 修改Fragment的EasyDialogManager相关操作，防止多次调用dialog显示隐藏可能会崩溃（最好还是自己控制显示隐藏dialog）
 easymvp 新增MvpLog用于控制是否打印log
 logger 去除EasyLog中的控制打印log变量
 dialoger 新增获得默认三个进度框的方法
-
 ```
 **1.0.7**
 ```

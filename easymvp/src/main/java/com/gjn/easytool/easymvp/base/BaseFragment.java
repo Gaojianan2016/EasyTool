@@ -113,4 +113,10 @@ public abstract class BaseFragment extends Fragment implements IUIEvent {
     public void dismissAll() {
         mDialogManager.clearDialog();
     }
+
+    @Override
+    public void onDestroyView() {
+        dismissAll();
+        super.onDestroyView();
+    }
 }

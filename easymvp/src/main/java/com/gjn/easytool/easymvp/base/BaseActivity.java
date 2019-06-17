@@ -99,7 +99,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IUIEvent
     @Override
     protected void onDestroy() {
         AppManager.getInstance().removeActivity(this);
+        dismissAll();
         super.onDestroy();
-        mDialogManager.clearDialog();
     }
 }

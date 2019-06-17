@@ -18,7 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.gjn.easytool.dialoger.base.BaseDialogFragment;
-import com.gjn.easytool.dialoger.base.IDialogDismissListener;
+import com.gjn.easytool.dialoger.base.IDialogCancelListener;
 import com.gjn.easytool.dialoger.base.IDialogConvertView;
 import com.gjn.easytool.dialoger.base.ViewHolder;
 import com.gjn.easytool.utils.DisplayUtils;
@@ -32,17 +32,15 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 
 public class EasyDialogManager {
+    public final static int SMALL_SIZE = 2;
+    public final static int MIDDLE_SIZE = 1;
+    public final static int LARGE_SIZE = 0;
     private static final String TAG = "EasyDialogManager";
-
-    public final static int SMALL_SIZE =    2;
-    public final static int MIDDLE_SIZE =   1;
-    public final static int LARGE_SIZE =    0;
-
     private FragmentManager fm;
     private Activity activity;
 
     private CopyOnWriteArrayList<BaseDialogFragment> fragments;
-    private IDialogDismissListener dialogDismissListener;
+    private IDialogCancelListener dialogCancelListener;
 
     private EasyDialogFragment smallLoadingDialog;
     private EasyDialogFragment middleLoadingDialog;
@@ -62,13 +60,15 @@ public class EasyDialogManager {
 
     private void init() {
         fragments = new CopyOnWriteArrayList<>();
-        dialogDismissListener = new IDialogDismissListener() {
+
+        dialogCancelListener = new IDialogCancelListener() {
             @Override
-            public void onDismiss(DialogFragment dialogFragment) {
+            public void onCancel(DialogFragment dialogFragment) {
                 Log.i(TAG, "touch or back dissmiss: " + dialogFragment);
                 fragments.remove(dialogFragment);
             }
         };
+
         smallLoadingDialog = getEasyLoadingDialog(SMALL_SIZE);
         middleLoadingDialog = getEasyLoadingDialog(MIDDLE_SIZE);
         largeLoadingDialog = getEasyLoadingDialog(LARGE_SIZE);
@@ -77,20 +77,20 @@ public class EasyDialogManager {
     private void show(BaseDialogFragment dialogFragment) {
         Log.i(TAG, "show: " + dialogFragment);
         fragments.add(dialogFragment);
-        dialogFragment.setOnDialogDismissListener(dialogDismissListener);
+        dialogFragment.setOnDialogCancelListener(dialogCancelListener);
         dialogFragment.show(fm, dialogFragment.getTag());
     }
 
     private void dismiss(BaseDialogFragment dialogFragment) {
         Log.i(TAG, "dismiss: " + dialogFragment);
         fragments.remove(dialogFragment);
-        dialogFragment.clearOnDialogDismissListeners();
+        dialogFragment.clearOnDialogCancelListeners();
         dialogFragment.dismissAllowingStateLoss();
     }
 
-    public void addDialogDismissListener(IDialogDismissListener listener) {
+    public void addDialogCancelListener(IDialogCancelListener listener) {
         for (BaseDialogFragment fragment : fragments) {
-            fragment.addOnDialogDismissListener(listener);
+            fragment.addOnDialogCancelListener(listener);
         }
     }
 
@@ -192,7 +192,7 @@ public class EasyDialogManager {
                         if (yesOnClickListener != null) {
                             yesOnClickListener.onClick(v);
                         }
-                        dialogFragment.dismissAllowingStateLoss();
+                        dismiss((BaseDialogFragment) dialogFragment);
                     }
                 });
                 holder.setIdOnClickListener(R.id.edf_tv_no_edb, new View.OnClickListener() {
@@ -201,7 +201,7 @@ public class EasyDialogManager {
                         if (noOnClickListener != null) {
                             noOnClickListener.onClick(v);
                         }
-                        dialogFragment.dismissAllowingStateLoss();
+                        dismiss((BaseDialogFragment) dialogFragment);
                     }
                 });
             }
@@ -254,7 +254,7 @@ public class EasyDialogManager {
                         if (inputListener != null) {
                             inputListener.confirm(v, editText.getText(), maxSize);
                         }
-                        dialogFragment.dismissAllowingStateLoss();
+                        dismiss((BaseDialogFragment) dialogFragment);
                     }
                 });
                 holder.setIdOnClickListener(R.id.edf_tv_no_edb, new View.OnClickListener() {
@@ -263,7 +263,7 @@ public class EasyDialogManager {
                         if (noOnClickListener != null) {
                             noOnClickListener.onClick(v);
                         }
-                        dialogFragment.dismissAllowingStateLoss();
+                        dismiss((BaseDialogFragment) dialogFragment);
                     }
                 });
             }
@@ -322,7 +322,7 @@ public class EasyDialogManager {
                             yesOnClickListener.onClick(v);
                         }
                         timer.cancel();
-                        dialogFragment.dismissAllowingStateLoss();
+                        dismiss((BaseDialogFragment) dialogFragment);
                     }
                 });
                 holder.setIdOnClickListener(R.id.edf_tv_no_edb, new View.OnClickListener() {
@@ -332,7 +332,7 @@ public class EasyDialogManager {
                             noOnClickListener.onClick(v);
                         }
                         timer.cancel();
-                        dialogFragment.dismissAllowingStateLoss();
+                        dismiss((BaseDialogFragment) dialogFragment);
                     }
                 });
             }
@@ -369,15 +369,15 @@ public class EasyDialogManager {
         return largeLoadingDialog;
     }
 
-    public void dismissSmallLoadingDialog(){
+    public void dismissSmallLoadingDialog() {
         dismissDialog(smallLoadingDialog);
     }
 
-    public void dismissMiddleLoadingDialog(){
+    public void dismissMiddleLoadingDialog() {
         dismissDialog(middleLoadingDialog);
     }
 
-    public void dismissLargeLoadingDialog(){
+    public void dismissLargeLoadingDialog() {
         dismissDialog(largeLoadingDialog);
     }
 

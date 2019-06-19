@@ -1,8 +1,6 @@
 package com.gjn.easytool;
 
 
-import com.gjn.easytool.easysqlite.SqlData;
-
 /**
  * @author gjn
  * @time 2019/6/19 14:04

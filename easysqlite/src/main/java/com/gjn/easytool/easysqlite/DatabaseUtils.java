@@ -2,7 +2,6 @@ package com.gjn.easytool.easysqlite;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.util.Log;
 
 import com.gjn.easytool.utils.ReflexUtils;
 

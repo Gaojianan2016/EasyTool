@@ -3,7 +3,6 @@ package com.gjn.easytool.easysqlite;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /**
  * @author gjn

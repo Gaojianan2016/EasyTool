@@ -657,6 +657,11 @@ public class ReflexActivity extends BaseMvpActivity{
 ----------------
 
 ## 更新说明
+**1.1.0**
+```
+utils ReflexUtils setValue，getValue进行区分新增setJsonValue和getJsonValue用来区别一个是用as自动生成的set get方法和用gson工具生成的get set方法
+easysqlite 新增库，用于简单管理sqlite。拥有正常增删改查功能，自定义的数据库版本升级需要自己写代码（这边的数据库升级是原来的库新增了参数或者减少了参数这种）。
+```
 **1.0.9**
 ```
 easymvp 修复onDestroy可能崩溃bug，由于mDialogManager.clearDialog()调用在super之后的原因

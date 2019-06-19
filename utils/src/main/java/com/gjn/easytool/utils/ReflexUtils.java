@@ -189,9 +189,9 @@ public class ReflexUtils {
         }
     }
 
-    public static Object getValue(Object o, Field field){
+    public static Object getJsonValue(Object o, Field field){
         String methodName;
-        if (field.getType().getSimpleName().equals("boolean")) {
+        if (field.getType().getSimpleName().toLowerCase().equals("boolean")) {
             methodName = StringUtils.gsMethodName("is", field.getName());
         } else {
             methodName = StringUtils.gsMethodName("get", field.getName());
@@ -199,9 +199,31 @@ public class ReflexUtils {
         return doDeclaredMethod(o, methodName);
     }
 
-    public static void setValue(Object o, Field field, Object value){
+    public static void setJsonValue(Object o, Field field, Object value){
         doDeclaredMethod(o, StringUtils.gsMethodName("set", field.getName()),
                 new Class[]{field.getType()}, new Object[]{value});
+    }
+
+    public static Object getValue(Object o, Field field){
+        String methodName;
+        if (field.getType().getSimpleName().toLowerCase().equals("boolean")) {
+            methodName = StringUtils.gsMethodName("is", field.getName()
+                    .replace("is", ""));
+        } else {
+            methodName = StringUtils.gsMethodName("get", field.getName());
+        }
+        return doDeclaredMethod(o, methodName);
+    }
+
+    public static void setValue(Object o, Field field, Object value){
+        String methodName;
+        if (field.getType().getSimpleName().toLowerCase().equals("boolean")) {
+            methodName = StringUtils.gsMethodName("set",
+                    field.getName().replace("is", ""));
+        }else {
+            methodName = StringUtils.gsMethodName("set", field.getName());
+        }
+        doDeclaredMethod(o, methodName, new Class[]{field.getType()}, new Object[]{value});
     }
 
     public static boolean isPublic(int modifiers) {

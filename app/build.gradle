@@ -46,5 +46,6 @@ dependencies {
     implementation project(':dialoger')
     implementation project(':easymvp')
     implementation project(':easynet')
+    implementation project(':easysqlite')
     implementation 'com.android.support:support-v4:27.1.1'
 }

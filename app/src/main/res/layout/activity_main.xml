@@ -96,4 +96,14 @@
         app:layout_constraintStart_toEndOf="@+id/btn7"
         app:layout_constraintTop_toTopOf="@+id/btn7" />
 
+    <Button
+        android:id="@+id/btn9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Sqlite"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn8" />
+
 </android.support.constraint.ConstraintLayout>

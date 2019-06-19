@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/dialoger" />
             <option value="$PROJECT_DIR$/easymvp" />
             <option value="$PROJECT_DIR$/easynet" />
+            <option value="$PROJECT_DIR$/easysqlite" />
             <option value="$PROJECT_DIR$/logger" />
             <option value="$PROJECT_DIR$/toaster" />
             <option value="$PROJECT_DIR$/utils" />

@@ -10,8 +10,10 @@ import com.gjn.easytool.ui.MvpActivity;
 import com.gjn.easytool.ui.NetActivity;
 import com.gjn.easytool.ui.QrcodeActivity;
 import com.gjn.easytool.ui.ReflexActivity;
+import com.gjn.easytool.ui.SqliteActivity;
 import com.gjn.easytool.ui.StringActivity;
 import com.gjn.easytool.ui.ToastActivity;
+import com.gjn.easytool.utils.SharedPreferencesUtil;
 import com.gjn.permissionlibrary.PermissionUtils;
 
 public class MainActivity extends BaseMvpActivity {
@@ -29,6 +31,8 @@ public class MainActivity extends BaseMvpActivity {
     protected void initData() {
         DefaultInterceptor.isDebug = BuildConfig.DEBUG;
         click();
+
+        SharedPreferencesUtil.create(mActivity, "easytool");
 
         PermissionUtils.requestPermissions(mActivity, 0x111, PermissionUtils.PERMISSION_WRITE_EXTERNAL_STORAGE,
                 PermissionUtils.PERMISSION_READ_EXTERNAL_STORAGE);
@@ -81,6 +85,12 @@ public class MainActivity extends BaseMvpActivity {
             @Override
             public void onClick(View v) {
                 showNext(MvpActivity.class);
+            }
+        });
+        findViewById(R.id.btn9).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNext(SqliteActivity.class);
             }
         });
     }

@@ -33,6 +33,59 @@ dependencies {
 ```
 **x.y.z请根据jitpack取值 请取1.0.6之后的版本**
 
+
+----------------
+
+## 更新说明
+**1.1.0**
+```
+utils ReflexUtils setValue，getValue进行区分新增setJsonValue和getJsonValue用来区别一个是用as自动生成的set get方法和用gson工具生成的get set方法
+easysqlite 新增库，用于简单管理sqlite。拥有正常增删改查功能，自定义的数据库版本升级需要自己写代码（这边的数据库升级是原来的库新增了参数或者减少了参数这种）。
+```
+**1.0.9**
+```
+easymvp 修复onDestroy可能崩溃bug，由于mDialogManager.clearDialog()调用在super之后的原因
+dialoger 将onDismiss的监听去除，还是使用onCancel监听，防止多次调用dialogFragment崩溃
+```
+**1.0.8**
+```
+easymvp 修改Fragment的EasyDialogManager相关操作，防止多次调用dialog显示隐藏可能会崩溃（最好还是自己控制显示隐藏dialog）
+easymvp 新增MvpLog用于控制是否打印log
+logger 去除EasyLog中的控制打印log变量
+dialoger 新增获得默认三个进度框的方法
+```
+**1.0.7**
+```
+easytool FileUtils修改打开文件方法默认使用7.0以前的打开方式，新增方法openFileApi24用来调用7.0之后的方式打开
+```
+**1.0.6**（之前的版本存在致命bug 绑定mvp模式崩溃）
+```
+easymvp 修改绑定mvp模式崩溃bug。
+easytool AnnotationsUtils新增checkAnnotations(Field field, Class<? extends Annotation> annotationCls)方法
+```
+**1.0.5**
+```
+easymvp 修改Fragment和Activity无法同时存在会崩溃bug。
+```
+**1.0.4**
+```
+easynet库 修改DownLoadManager管理类新增downloadOnUI方法，传入Activity可以让最后的结果转为UI线程。
+```
+**1.0.3**
+```
+easynet库 修改DownLoadManager管理类停止下载接口,修复某些条件下载无后缀bug，目前只做了单例模式（既单一下载管理，多下载后续加入）
+utils库 修改FileUtils 新增一些对文件名称后缀判断的方法
+```
+**1.0.2**
+```
+easynet库 添加DownLoadManager管理类用于下载
+utils库 修改FileUtils 为打开7.0以上的文件加入provider
+```
+**1.0.1-pre**
+```
+预版本，正常可用
+```
+
 ----------------
 
 ## Demo说明
@@ -654,54 +707,3 @@ public class ReflexActivity extends BaseMvpActivity{
 }
 ```
 
-----------------
-
-## 更新说明
-**1.1.0**
-```
-utils ReflexUtils setValue，getValue进行区分新增setJsonValue和getJsonValue用来区别一个是用as自动生成的set get方法和用gson工具生成的get set方法
-easysqlite 新增库，用于简单管理sqlite。拥有正常增删改查功能，自定义的数据库版本升级需要自己写代码（这边的数据库升级是原来的库新增了参数或者减少了参数这种）。
-```
-**1.0.9**
-```
-easymvp 修复onDestroy可能崩溃bug，由于mDialogManager.clearDialog()调用在super之后的原因
-dialoger 将onDismiss的监听去除，还是使用onCancel监听，防止多次调用dialogFragment崩溃
-```
-**1.0.8**
-```
-easymvp 修改Fragment的EasyDialogManager相关操作，防止多次调用dialog显示隐藏可能会崩溃（最好还是自己控制显示隐藏dialog）
-easymvp 新增MvpLog用于控制是否打印log
-logger 去除EasyLog中的控制打印log变量
-dialoger 新增获得默认三个进度框的方法
-```
-**1.0.7**
-```
-easytool FileUtils修改打开文件方法默认使用7.0以前的打开方式，新增方法openFileApi24用来调用7.0之后的方式打开
-```
-**1.0.6**（之前的版本存在致命bug 绑定mvp模式崩溃）
-```
-easymvp 修改绑定mvp模式崩溃bug。
-easytool AnnotationsUtils新增checkAnnotations(Field field, Class<? extends Annotation> annotationCls)方法
-```
-**1.0.5**
-```
-easymvp 修改Fragment和Activity无法同时存在会崩溃bug。
-```
-**1.0.4**
-```
-easynet库 修改DownLoadManager管理类新增downloadOnUI方法，传入Activity可以让最后的结果转为UI线程。
-```
-**1.0.3**
-```
-easynet库 修改DownLoadManager管理类停止下载接口,修复某些条件下载无后缀bug，目前只做了单例模式（既单一下载管理，多下载后续加入）
-utils库 修改FileUtils 新增一些对文件名称后缀判断的方法
-```
-**1.0.2**
-```
-easynet库 添加DownLoadManager管理类用于下载
-utils库 修改FileUtils 为打开7.0以上的文件加入provider
-```
-**1.0.1-pre**
-```
-预版本，正常可用
-```

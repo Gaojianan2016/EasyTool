@@ -40,6 +40,7 @@
         <activity android:name=".ui.StringActivity" />
         <activity android:name=".ui.MvpActivity" />
         <activity android:name=".ui.SqliteActivity" />
+        <activity android:name=".ui.RxBusActivity"></activity>
     </application>
 
 </manifest>

@@ -7,12 +7,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gjn.easytool.R;
-import com.gjn.easytool.User;
 import com.gjn.easytool.UserData;
 import com.gjn.easytool.UserData2;
 import com.gjn.easytool.easymvp.base.BaseMvpActivity;
 import com.gjn.easytool.easysqlite.DatabaseManager;
-import com.gjn.easytool.easysqlite.DatabaseUtils;
 import com.gjn.easytool.utils.ListUtils;
 import com.gjn.easytool.utils.SharedPreferencesUtil;
 

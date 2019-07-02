@@ -37,6 +37,10 @@ dependencies {
 ----------------
 
 ## 更新说明
+**1.1.1**
+```
+easyrxevent 新增库，用于管理rxbus。
+```
 **1.1.0**
 ```
 utils ReflexUtils setValue，getValue进行区分新增setJsonValue和getJsonValue用来区别一个是用as自动生成的set get方法和用gson工具生成的get set方法
@@ -80,10 +84,6 @@ utils库 修改FileUtils 新增一些对文件名称后缀判断的方法
 ```
 easynet库 添加DownLoadManager管理类用于下载
 utils库 修改FileUtils 为打开7.0以上的文件加入provider
-```
-**1.0.1-pre**
-```
-预版本，正常可用
 ```
 
 ----------------

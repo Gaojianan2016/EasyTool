@@ -10,6 +10,7 @@ import com.gjn.easytool.ui.MvpActivity;
 import com.gjn.easytool.ui.NetActivity;
 import com.gjn.easytool.ui.QrcodeActivity;
 import com.gjn.easytool.ui.ReflexActivity;
+import com.gjn.easytool.ui.RxBusActivity;
 import com.gjn.easytool.ui.SqliteActivity;
 import com.gjn.easytool.ui.StringActivity;
 import com.gjn.easytool.ui.ToastActivity;
@@ -91,6 +92,12 @@ public class MainActivity extends BaseMvpActivity {
             @Override
             public void onClick(View v) {
                 showNext(SqliteActivity.class);
+            }
+        });
+        findViewById(R.id.btn10).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNext(RxBusActivity.class);
             }
         });
     }

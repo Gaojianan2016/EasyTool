@@ -1,5 +1,6 @@
 package com.gjn.easytool.ui;
 
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -77,7 +78,7 @@ public class NetActivity extends BaseMvpActivity {
             public void onClick(View v) {
                 OkHttpManager.getInstance().getAsyn(imgUrl + "10/1", new Callback() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -88,7 +89,7 @@ public class NetActivity extends BaseMvpActivity {
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

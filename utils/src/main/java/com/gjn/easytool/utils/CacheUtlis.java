@@ -6,9 +6,9 @@ import android.os.Environment;
 import java.io.File;
 
 /**
- * Created by gjn on 2018/5/9.
+ * @author gjn
+ * @time 2018/5/9 11:36
  */
-
 public class CacheUtlis {
 
     public static void clearAllCache(Context context){

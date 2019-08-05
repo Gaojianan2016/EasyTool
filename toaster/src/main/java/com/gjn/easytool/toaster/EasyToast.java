@@ -1,16 +1,11 @@
 package com.gjn.easytool.toaster;
 
 import android.content.Context;
-import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.gjn.easytool.utils.ReflexUtils;
-import com.gjn.easytool.utils.ResourcesUtils;
 
 /**
  * @author gjn

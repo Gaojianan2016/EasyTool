@@ -1,5 +1,6 @@
 package com.gjn.easytool.easynet;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.gjn.easytool.logger.EasyLog;
@@ -46,7 +47,7 @@ public class DefaultInterceptor implements Interceptor {
     }
 
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public Response intercept(@NonNull Chain chain) throws IOException {
         Request request = chain.request();
         if (onHttpHeadersListener != null) {
             Map<String, String> oldHeads = new HashMap<>();

@@ -1,7 +1,6 @@
 package com.gjn.easytool.dialoger.base;
 
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 
 /**
  * @author gjn

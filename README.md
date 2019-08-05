@@ -37,6 +37,10 @@ dependencies {
 ----------------
 
 ## 更新说明
+**1.1.2**
+```
+utils 新增BlurBitmapUtil处理高斯模糊图片。
+```
 **1.1.1**
 ```
 easyrxevent 新增库，用于管理rxbus。

@@ -3,8 +3,8 @@ package com.gjn.easytool.easynet;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.gjn.easytool.logger.EasyLog;
 import com.gjn.easytool.utils.FileUtils;
@@ -90,7 +90,7 @@ public class DownLoadManager {
         okHttpClient.newCall(new Request.Builder().url(url).build())
                 .enqueue(new Callback() {
                     @Override
-                    public void onFailure(final Call call, final IOException e) {
+                    public void onFailure(@NonNull final Call call, @NonNull final IOException e) {
                         EasyLog.w(TAG, "download file fail. " + e.getMessage());
                         if (activity != null) {
                             activity.runOnUiThread(new Runnable() {
@@ -106,7 +106,7 @@ public class DownLoadManager {
                     }
 
                     @Override
-                    public void onResponse(final Call call, final Response response) throws IOException {
+                    public void onResponse(@NonNull final Call call, @NonNull final Response response) throws IOException {
                         File filePath = new File(path);
                         final File file = new File(path, getUrlFileName(url, name, response));
                         try {

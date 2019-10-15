@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
+
+import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.util.regex.Pattern;
@@ -36,6 +37,11 @@ public class FileUtils {
             intent.setDataAndType(uri, mimeType);
             context.startActivity(intent);
         }
+    }
+
+    public static void openFileApi24(Context context, String filePath) {
+        File file = new File(filePath);
+        openFileApi24(context, file);
     }
 
     public static void openFileApi24(Context context, File file) {

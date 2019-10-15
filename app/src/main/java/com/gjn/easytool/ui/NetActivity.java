@@ -1,8 +1,9 @@
 package com.gjn.easytool.ui;
 
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ProgressBar;
+
+import androidx.annotation.NonNull;
 
 import com.gjn.easytool.IUrl;
 import com.gjn.easytool.Pic;
@@ -30,33 +31,10 @@ import okhttp3.Response;
 
 public class NetActivity extends BaseMvpActivity {
 
-
     ProgressBar progressBar, progressBar2;
     Call Call, Call2;
-    private String downloadUrl = "https://nbcache00.baidupcs.com/file/5b0241b203619e261ab533e1ade37ecc?" +
-            "xcode=f5960cf0ee6db70bc464ecbe44733c914184e727eb223b2ff9b4b9c940cc3becfe98232e84e1" +
-            "5e39c14560a708d7579e6563ff7f8f8f53f8&fid=4010892182-250528-276997339918545" +
-            "&time=1558407709&sign=FDTAXGERLQHSKf-DCb740ccc5511e5e8fedcff06b081203-1A6axtLUYvdU%2BmIsDI5q7DxF2sg%3D&to=h5" +
-            "&size=1970376&sta_dx=1970376&sta_cs=26&sta_ft=jpg&sta_ct=7" +
-            "&sta_mt=7&fm2=MH%2CYangquan%2CAnywhere%2C%2Cfujian%2Cct&ctime=1506264410&mtime=1506305590" +
-            "&resv0=cdnback&resv1=0&vuk=4010892182&iv=0&htype=&newver=1&newfm=1&secfm=1&flow_ver=3" +
-            "&pkey=en-2f0c334d5aef34c1ec98ca2afd50abdee3c6b9cf73e6ff6e9018c9812a741113ceaca294dfa12d335a8" +
-            "9221865bf252474b48b54ed4c4769305a5e1275657320&sl=68616270&expires=8h&rt=sh&r=835097279" +
-            "&mlogid=3257654546322023582&vbdid=1006636502&fin=Sakura-4-1.jpg&fn=Sakura-4-1.jpg&rtype=1" +
-            "&dp-logid=3257654546322023582&dp-callid=0.1.1&hps=1&tsl=200" +
-            "&csl=200&csign=TsXSM8%2FB0G822EbBR9TujqFO1lg%3D&so=0&ut=6&uter=4&serv=0&uc=1865268231" +
-            "&ti=51702cd94a4865eeac1bf991765abdefe6ec8e7d0ed32ff2&by=themis";
-    String downloadUrl2 = "https://qdct01.baidupcs.com/file/f316b146424b588c5c3ea4bb66a82888?fid=4010892182-250528-" +
-            "43146222621473&time=1558411102&sign=FDTAXGERLQHSKfW-DCb740ccc5511e5e8fedcff06b081203-KJy90qmRSCxK%" +
-            "2B77ipaosW%2BKeCsw%3D&to=90&size=2963098&sta_dx=2963098&sta_cs=1&sta_ft=mp3&sta_ct=7&sta_mt=7&fm2=M" +
-            "H%2CYangquan%2CAnywhere%2C%2Cfujian%2Cct&ctime=1443629943&mtime=1444037479&resv0=cdnback&resv1=0&vuk" +
-            "=4010892182&iv=0&htype=&newver=1&newfm=1&secfm=1&flow_ver=3&pkey=en-e800ba91deec611fb8571ba01bb1f476" +
-            "3e8183316ebfcb60399e84d73ab5a2d56a3bd877088312c457fc7b33e05c75a425c9db15c13aad69305a5e1275657320&" +
-            "sl=79364174&expires=8h&rt=sh&r=486243323&mlogid=3258565253623899201&vbdid=1006636502&fin=%E5%BD%93%" +
-            "E4%B8%89%E5%9B%BD%E6%9D%80%E9%81%87%E5%88%B0+nobody.mp3&fn=%E5%BD%93%E4%B8%89%E5%9B%BD%E6%9D%80%E9" +
-            "%81%87%E5%88%B0+nobody.mp3&rtype=1&dp-logid=3258565253623899201&dp-callid=0.1.1&hps=1&tsl=100&csl=10" +
-            "0&csign=V%2FRatQeohLeEIlkasXXAlttvt5E%3D&so=0&ut=6&uter=4&serv=0&uc=1865268231&ti=54c943154d8629" +
-            "039dc8841dfa715187771908c69ffb8cd2&by=themis";
+    private String downloadUrl = "http://ww1.sinaimg.cn/large/0065oQSqly1g2pquqlp0nj30n00yiq8u.jpg";
+    String downloadUrl2 = "https://ww1.sinaimg.cn/large/0065oQSqly1g2hekfwnd7j30sg0x4djy.jpg";
     private String imgUrl = "http://gank.io/api/data/福利/";
 
     @Override
@@ -140,7 +118,7 @@ public class NetActivity extends BaseMvpActivity {
                     public void success(Call call, File file) {
                         EasyLog.e("progressBar下载成功");
                         showToast("progressBar下载成功");
-                        FileUtils.openFile(mActivity, file);
+                        openFile(file);
                     }
 
                     @Override
@@ -180,7 +158,7 @@ public class NetActivity extends BaseMvpActivity {
                     public void success(Call call, File file) {
                         EasyLog.e("progressBar2下载成功");
                         showToast("progressBar2下载成功");
-                        FileUtils.openFile(mActivity, file);
+                        openFile(file);
                     }
 
                     @Override
@@ -200,5 +178,9 @@ public class NetActivity extends BaseMvpActivity {
                 progressBar2.setProgress(0);
             }
         });
+    }
+
+    private void openFile(File file) {
+        FileUtils.openFileApi24(mActivity, file);
     }
 }

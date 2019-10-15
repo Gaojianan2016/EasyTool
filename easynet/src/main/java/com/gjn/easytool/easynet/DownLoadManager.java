@@ -3,8 +3,9 @@ package com.gjn.easytool.easynet;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 import com.gjn.easytool.logger.EasyLog;
 import com.gjn.easytool.utils.FileUtils;

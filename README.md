@@ -32,11 +32,16 @@ dependencies {
 }
 ```
 **x.y.z请根据jitpack取值 请取1.0.6之后的版本**
+**后缀带有x的版本是更新为androidx的版本**
 
 
 ----------------
 
 ## 更新说明
+**2.0.0x**
+```
+所有版本升级androidx
+```
 **1.1.2**
 ```
 utils 新增BlurBitmapUtil处理高斯模糊图片。
@@ -83,11 +88,6 @@ easynet库 修改DownLoadManager管理类新增downloadOnUI方法，传入Activi
 ```
 easynet库 修改DownLoadManager管理类停止下载接口,修复某些条件下载无后缀bug，目前只做了单例模式（既单一下载管理，多下载后续加入）
 utils库 修改FileUtils 新增一些对文件名称后缀判断的方法
-```
-**1.0.2**
-```
-easynet库 添加DownLoadManager管理类用于下载
-utils库 修改FileUtils 为打开7.0以上的文件加入provider
 ```
 
 ----------------
@@ -428,21 +428,10 @@ public class DialogActivity extends BaseMvpActivity {
 ```
 public class NetActivity extends BaseMvpActivity {
 
-
-    ProgressBar progressBar;
-    Call Call;
-    private String downloadUrl = "https://nbcache00.baidupcs.com/file/5b0241b203619e261ab533e1ade37ecc?" +
-            "bkt=p3-14005b0241b203619e261ab533e1ade37ecc4b31dce90000001e10c8&" +
-            "xcode=b7f3c1a2b27179725c856f6118a14ce74184e727eb223b2f7765844d0716d17886d57f9b4ce0d9b2f4837" +
-            "ca1cb037c959a7e3ac4ae9d7ad8&fid=4010892182-250528-276997339918545&time=1555395097&" +
-            "sign=FDTAXGERLQBHSKf-DCb740ccc5511e5e8fedcff06b081203-xt3pohGnzcjJSsphbc8I3ZLxfLs%3D&to=h5&size=1970376" +
-            "&sta_dx=1970376&sta_cs=22&sta_ft=jpg&sta_ct=7&sta_mt=7" +
-            "&fm2=MH%2CYangquan%2CAnywhere%2C%2Cfujian%2Cct&ctime=1506264410" +
-            "&mtime=1506305590&resv0=cdnback&resv1=0&vuk=4010892182&iv=0&htype=" +
-            "&newver=1&newfm=1&secfm=1&flow_ver=3&pkey=14005b0241b203619e261ab533e1ade37ecc4b31dce90000001e10c8&sl=68616270" +
-            "&expires=8h&rt=pr&r=491820287&mlogid=2448962651318004643&vbdid=1006636502&fin=Sakura-4-1.jpg" +
-            "&fn=Sakura-4-1.jpg&rtype=1&dp-logid=2448962651318004643&dp-callid=0.1.1&hps=1&tsl=200&csl=200" +
-            "&csign=TsXSM8%2FB0G822EbBR9TujqFO1lg%3D&so=0&ut=6&uter=4&serv=0&uc=3447588337&ti=e3357e20d22cf848765db854a6a48d646d06d6c711b2a8bd&by=themis";
+    ProgressBar progressBar, progressBar2;
+    Call Call, Call2;
+    private String downloadUrl = "http://ww1.sinaimg.cn/large/0065oQSqly1g2pquqlp0nj30n00yiq8u.jpg";
+    String downloadUrl2 = "https://ww1.sinaimg.cn/large/0065oQSqly1g2hekfwnd7j30sg0x4djy.jpg";
     private String imgUrl = "http://gank.io/api/data/福利/";
 
     @Override
@@ -454,6 +443,7 @@ public class NetActivity extends BaseMvpActivity {
     protected void initView() {
         DefaultInterceptor.isDebug = true;
         progressBar = findViewById(R.id.progressBar);
+        progressBar2 = findViewById(R.id.progressBar2);
     }
 
     @Override
@@ -463,12 +453,24 @@ public class NetActivity extends BaseMvpActivity {
             public void onClick(View v) {
                 OkHttpManager.getInstance().getAsyn(imgUrl + "10/1", new Callback() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                showToast("OkHttpManager访问失败");
+                            }
+                        });
                         EasyLog.e("OkHttpManager访问失败 " + e.getMessage());
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                showToast("OkHttpManager访问成功");
+                            }
+                        });
                         EasyLog.e("OkHttpManager访问成功");
                     }
                 });
@@ -481,11 +483,13 @@ public class NetActivity extends BaseMvpActivity {
                         new Consumer<Pic>() {
                             @Override
                             public void accept(Pic pic) throws Exception {
+                                showToast("RetrofitManager访问成功");
                                 EasyLog.e("RetrofitManager访问成功");
                             }
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
+                                showToast("RetrofitManager访问失败");
                                 EasyLog.e("RetrofitManager访问失败 " + throwable.getMessage());
                             }
                         });
@@ -494,7 +498,7 @@ public class NetActivity extends BaseMvpActivity {
         findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DownLoadManager.getInstance().download(downloadUrl, new DownLoadManager.OnDownLoadListener() {
+                DownLoadManager.getInstance().downloadOnUI(mActivity, downloadUrl, new DownLoadManager.OnDownLoadListener() {
                     @Override
                     public void start(Call call, File file, String name, int lenght) {
                         Call = call;
@@ -510,11 +514,13 @@ public class NetActivity extends BaseMvpActivity {
                     @Override
                     public void success(Call call, File file) {
                         EasyLog.e("progressBar下载成功");
-                        FileUtils.openFile(mActivity, file);
+                        showToast("progressBar下载成功");
+                        openFile(file);
                     }
 
                     @Override
                     public void fail(Call call) {
+                        showToast("progressBar下载失败");
                         EasyLog.e("progressBar下载失败");
                     }
                 });
@@ -529,6 +535,50 @@ public class NetActivity extends BaseMvpActivity {
                 progressBar.setProgress(0);
             }
         });
+        findViewById(R.id.button5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DownLoadManager.getInstance().downloadOnUI(mActivity, downloadUrl2, new DownLoadManager.OnDownLoadListener() {
+                    @Override
+                    public void start(Call call, File file, String name, int lenght) {
+                        Call2 = call;
+                        progressBar2.setProgress(0);
+                        progressBar2.setMax(lenght);
+                    }
+
+                    @Override
+                    public void loading(Call call, int readStream, int allStream) {
+                        progressBar2.setProgress(readStream);
+                    }
+
+                    @Override
+                    public void success(Call call, File file) {
+                        EasyLog.e("progressBar2下载成功");
+                        showToast("progressBar2下载成功");
+                        openFile(file);
+                    }
+
+                    @Override
+                    public void fail(Call call) {
+                        showToast("progressBar2下载失败");
+                        EasyLog.e("progressBar2下载失败");
+                    }
+                });
+            }
+        });
+        findViewById(R.id.button6).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Call2 != null) {
+                    Call2.cancel();
+                }
+                progressBar2.setProgress(0);
+            }
+        });
+    }
+
+    private void openFile(File file) {
+        FileUtils.openFileApi24(mActivity, file);
     }
 }
 ```

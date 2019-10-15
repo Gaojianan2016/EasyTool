@@ -1,7 +1,8 @@
 package com.gjn.easytool.easymvp;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
+
+import androidx.fragment.app.Fragment;
 
 import com.gjn.easytool.easymvp.Interface.IMvpView;
 import com.gjn.easytool.easymvp.base.BasePresenter;

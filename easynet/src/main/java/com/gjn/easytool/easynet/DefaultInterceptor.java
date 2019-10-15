@@ -1,7 +1,8 @@
 package com.gjn.easytool.easynet;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.gjn.easytool.logger.EasyLog;
 import com.gjn.easytool.utils.JsonUtils;
@@ -124,10 +125,10 @@ public class DefaultInterceptor implements Interceptor {
         BufferedSource source = responseBody.source();
         source.request(Long.MAX_VALUE);
         Buffer buffer = source.buffer();
-        Charset charset = Util.UTF_8;
+        Charset charset = Charset.forName("UTF-8");
         MediaType contentType = responseBody.contentType();
         if (contentType != null) {
-            charset = contentType.charset() == null ? Util.UTF_8 : contentType.charset();
+            charset = contentType.charset() == null ? Charset.forName("UTF-8") : contentType.charset();
         }
         String result = buffer.clone().readString(charset);
         if (result.startsWith("{\"")) {

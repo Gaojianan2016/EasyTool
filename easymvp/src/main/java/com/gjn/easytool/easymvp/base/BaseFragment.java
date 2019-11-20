@@ -45,11 +45,12 @@ public abstract class BaseFragment extends Fragment implements IUIEvent {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mView == null) {
             mView = ResourcesUtils.getView(inflater, getLayoutId(), container, false);
-            init();
-            initView();
-            initData();
+        }else {
+            ViewUtils.removeParent(mView);
         }
-        ViewUtils.removeParent(mView);
+        init();
+        initView();
+        initData();
         return mView;
     }
 

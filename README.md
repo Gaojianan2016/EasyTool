@@ -37,6 +37,15 @@ dependencies {
 ----------------
 
 ## 更新说明
+**1.1.3**
+```
+easymvp 新增Fragment懒加载。
+easymvp Mvp功能优化，新增BaseView一次性加载全部IMvpView。
+easyrxevent 修改包名。
+utils 新增DelayExitUtils处理两次返回。
+utils 新增NetUtils判断网络状态。
+utils 新增ThreadUtils管理线程。
+```
 **1.1.2**
 ```
 utils 新增BlurBitmapUtil处理高斯模糊图片。
@@ -83,11 +92,6 @@ easynet库 修改DownLoadManager管理类新增downloadOnUI方法，传入Activi
 ```
 easynet库 修改DownLoadManager管理类停止下载接口,修复某些条件下载无后缀bug，目前只做了单例模式（既单一下载管理，多下载后续加入）
 utils库 修改FileUtils 新增一些对文件名称后缀判断的方法
-```
-**1.0.2**
-```
-easynet库 添加DownLoadManager管理类用于下载
-utils库 修改FileUtils 为打开7.0以上的文件加入provider
 ```
 
 ----------------

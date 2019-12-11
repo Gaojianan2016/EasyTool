@@ -1,4 +1,4 @@
-package com.jumi.easyrxevent;
+package com.gjn.easytool.easyrxevent;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;

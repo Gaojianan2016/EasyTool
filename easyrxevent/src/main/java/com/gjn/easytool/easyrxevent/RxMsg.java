@@ -1,4 +1,4 @@
-package com.jumi.easyrxevent;
+package com.gjn.easytool.easyrxevent;
 
 /**
  * @author gjn

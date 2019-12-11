@@ -7,8 +7,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.gjn.easytool.R;
-import com.jumi.easyrxevent.RxBus;
-import com.jumi.easyrxevent.RxMsg;
+import com.gjn.easytool.easymvp.MvpLog;
+import com.gjn.easytool.easyrxevent.RxBus;
+import com.gjn.easytool.easyrxevent.RxMsg;
 
 import io.reactivex.functions.Consumer;
 
@@ -21,6 +22,14 @@ public class RxBusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_bus);
 
+        RxBus.getRxMsgMainThread(new Consumer<RxMsg>() {
+            @Override
+            public void accept(RxMsg rxMsg) throws Exception {
+                MvpLog.e("触发rx " + rxMsg.code);
+                Toast.makeText(RxBusActivity.this, "Open", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         btn = findViewById(R.id.btn);
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -30,11 +39,5 @@ public class RxBusActivity extends AppCompatActivity {
             }
         });
 
-        RxBus.getRxMsgMainThread(new Consumer<RxMsg>() {
-            @Override
-            public void accept(RxMsg rxMsg) throws Exception {
-                Toast.makeText(RxBusActivity.this, "Open", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

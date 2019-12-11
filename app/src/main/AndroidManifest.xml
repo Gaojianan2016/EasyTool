@@ -39,6 +39,7 @@
         <activity android:name=".ui.ReflexActivity" />
         <activity android:name=".ui.StringActivity" />
         <activity android:name=".ui.MvpActivity" />
+        <activity android:name=".ui.Mvp2Activity" />
         <activity android:name=".ui.SqliteActivity" />
         <activity android:name=".ui.RxBusActivity" />
     </application>

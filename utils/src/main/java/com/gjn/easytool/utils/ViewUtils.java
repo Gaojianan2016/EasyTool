@@ -2,6 +2,7 @@ package com.gjn.easytool.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -56,5 +57,11 @@ public class ViewUtils {
 
     public static int getScreenHeight(Context context){
         return context.getResources().getDisplayMetrics().heightPixels;
+    }
+
+    public static void setRefreshing(SwipeRefreshLayout srl, boolean refreshing){
+        if (srl != null) {
+            srl.setRefreshing(refreshing);
+        }
     }
 }

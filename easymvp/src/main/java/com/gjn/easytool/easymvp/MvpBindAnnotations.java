@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.gjn.easytool.easymvp.Interface.IMvpView;
 import com.gjn.easytool.easymvp.base.BasePresenter;
+import com.gjn.easytool.easymvp.base.BaseView;
 import com.gjn.easytool.logger.EasyLog;
 import com.gjn.easytool.utils.ReflexUtils;
 
@@ -46,7 +47,6 @@ public class MvpBindAnnotations {
         presenters = new ArrayList<>();
         savePresenters();
         bindPresenter();
-        attachedPresenter();
     }
 
     public static MvpBindAnnotations newInstance(Activity activity) {
@@ -93,6 +93,18 @@ public class MvpBindAnnotations {
         for (BasePresenter presenter : getPresenters()) {
             if (presenter != null) {
                 presenter.onAttached(activity, (IMvpView) (fragment != null ? fragment : activity));
+            }
+        }
+    }
+
+    public void attachedPresenter(IMvpView view) {
+        if (view == null) {
+            attachedPresenter();
+            return;
+        }
+        for (BasePresenter presenter : getPresenters()) {
+            if (presenter != null) {
+                presenter.onAttached(activity, view);
             }
         }
     }

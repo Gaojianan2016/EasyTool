@@ -1,6 +1,7 @@
 package com.gjn.easytool.easymvp.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,12 +32,18 @@ public abstract class BaseFragment extends Fragment implements IUIEvent {
     protected EasyDialogManager mDialogManager;
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = (Activity) context;
+        mBundle = getArguments() == null ? new Bundle() : getArguments();
+        getBundle();
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         preCreate();
         super.onCreate(savedInstanceState);
         mFragment = this;
-        mActivity = getActivity();
-        mBundle = getArguments() == null ? new Bundle() : getArguments();
         mDialogManager = new EasyDialogManager(this);
     }
 
@@ -59,6 +66,9 @@ public abstract class BaseFragment extends Fragment implements IUIEvent {
     protected abstract void initView();
 
     protected abstract void initData();
+
+    protected void getBundle() {
+    }
 
     protected void preCreate() {
     }

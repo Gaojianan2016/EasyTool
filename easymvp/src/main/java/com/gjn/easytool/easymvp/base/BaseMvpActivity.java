@@ -10,11 +10,18 @@ import com.gjn.easytool.easymvp.MvpBindAnnotations;
 
 public abstract class BaseMvpActivity<P extends BasePresenter> extends BaseActivity implements IMvpView {
     protected MvpBindAnnotations mvpBindAnnotations;
+    protected BaseView mvpView;
 
     @Override
     protected void init() {
         super.init();
         mvpBindAnnotations = MvpBindAnnotations.newInstance(mActivity);
+        mvpView = getMvpView();
+        mvpBindAnnotations.attachedPresenter(mvpView);
+    }
+
+    protected BaseView getMvpView() {
+        return null;
     }
 
     protected P getPresenter() {

@@ -37,7 +37,7 @@ dependencies {
 ----------------
 
 ## 更新说明
-**1.1.3**
+**1.1.4**
 ```
 easymvp 新增Fragment懒加载。
 easymvp Mvp功能优化，新增BaseView一次性加载全部IMvpView。
@@ -45,6 +45,10 @@ easyrxevent 修改包名。
 utils 新增DelayExitUtils处理两次返回。
 utils 新增NetUtils判断网络状态。
 utils 新增ThreadUtils管理线程。
+```
+**1.1.3**
+```
+修复BaseFragment使用ButterKnife时候多切换Fragment崩溃bug
 ```
 **1.1.2**
 ```

@@ -14,10 +14,10 @@ public abstract class BaseMvpActivity<P extends BasePresenter> extends BaseActiv
 
     @Override
     protected void init() {
-        super.init();
         mvpBindAnnotations = MvpBindAnnotations.newInstance(mActivity);
         mvpView = getMvpView();
         mvpBindAnnotations.attachedPresenter(mvpView);
+        super.init();
     }
 
     protected BaseView getMvpView() {

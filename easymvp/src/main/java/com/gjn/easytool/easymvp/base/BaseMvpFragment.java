@@ -14,10 +14,10 @@ public abstract class BaseMvpFragment<P extends BasePresenter> extends BaseLazyF
 
     @Override
     protected void init() {
-        super.init();
         mvpBindAnnotations = MvpBindAnnotations.newInstance(mActivity, mFragment);
         mvpView = getMvpView();
         mvpBindAnnotations.attachedPresenter(mvpView);
+        super.init();
     }
 
     @Override

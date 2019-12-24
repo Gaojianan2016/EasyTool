@@ -37,6 +37,11 @@ dependencies {
 ----------------
 
 ## 更新说明
+**1.1.5**
+```
+easyrxevent 新增RxBus2 原来的提供粘性事件和部分优化功能。
+easymvp BaseMvpFragment和BaseMvpActivity提前绑定mvp的时间
+```
 **1.1.4**
 ```
 easymvp 新增Fragment懒加载。

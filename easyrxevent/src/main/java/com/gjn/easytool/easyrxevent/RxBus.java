@@ -1,9 +1,11 @@
 package com.gjn.easytool.easyrxevent;
 
+import android.annotation.SuppressLint;
+
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.internal.functions.Functions;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
@@ -28,28 +30,45 @@ public class RxBus {
         return defaultRxBus;
     }
 
-    public static <T> void getMainThread(Class<T> eventType,
-                                         Consumer<? super T> onNext) {
-        getMainThread(eventType, onNext, Functions.ON_ERROR_MISSING);
+    @SuppressLint("CheckResult")
+    public static <T> void getMainThread(Class<T> eventType, final OnSubscribeCallback<T> callback) {
+        if (callback == null) {
+            return;
+        }
+        getDefulat().toObservable(eventType).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<T>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        callback.onSubscribe(d);
+                    }
+
+                    @Override
+                    public void onNext(T t) {
+                        callback.onNext(t);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callback.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        callback.onComplete();
+                    }
+                });
     }
 
-    public static <T> void getMainThread(Class<T> eventType, Consumer<? super T> onNext,
-                                         Consumer<? super Throwable> onError) {
-        getDefulat().toObservable(eventType)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(onNext, onError);
+    public static void getStringMainThread(OnSubscribeCallback<String> callback) {
+        getMainThread(String.class, callback);
+    }
+
+    public static void getRxMsgMainThread(OnSubscribeCallback<RxMsg> callback) {
+        getMainThread(RxMsg.class, callback);
     }
 
     public static void postString(String str) {
         getDefulat().post(str);
-    }
-
-    public static void getStringMainThread(Consumer<String> onNext) {
-        getStringMainThread(onNext, Functions.ON_ERROR_MISSING);
-    }
-
-    public static void getStringMainThread(Consumer<String> onNext, Consumer<? super Throwable> onError) {
-        getMainThread(String.class, onNext, onError);
     }
 
     public static void postRxMsg(int code) {
@@ -60,12 +79,8 @@ public class RxBus {
         getDefulat().post(new RxMsg(code, msg));
     }
 
-    public static void getRxMsgMainThread(Consumer<RxMsg> onNext) {
-        getRxMsgMainThread(onNext, Functions.ON_ERROR_MISSING);
-    }
-
-    public static void getRxMsgMainThread(Consumer<RxMsg> onNext, Consumer<? super Throwable> onError) {
-        getMainThread(RxMsg.class, onNext, onError);
+    public static void postRxMsg(RxMsg rxMsg) {
+        getDefulat().post(rxMsg);
     }
 
     public void post(Object o) {
@@ -76,4 +91,7 @@ public class RxBus {
         return subjectBus.ofType(eventType);
     }
 
+    public boolean hasObservers() {
+        return defaultRxBus.hasObservers();
+    }
 }

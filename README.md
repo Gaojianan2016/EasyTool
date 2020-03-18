@@ -37,6 +37,11 @@ dependencies {
 ----------------
 
 ## 更新说明
+**1.1.6**
+```
+easynet GsonConverterFactory替换为FastJsonConverterFactory解析json。
+easynet 旧的GsonConverterFactory解析方式改为url2和create2方法。
+```
 **1.1.5**
 ```
 easyrxevent 新增RxBus2 原来的提供粘性事件和部分优化功能。

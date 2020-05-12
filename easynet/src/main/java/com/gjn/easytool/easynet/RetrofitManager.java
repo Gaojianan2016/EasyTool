@@ -57,6 +57,10 @@ public class RetrofitManager {
         return getInstance().url(url).create(service);
     }
 
+    public static <T> T create2(String url, Class<T> service) {
+        return getInstance().url2(url).create(service);
+    }
+
     public static <T> void linkOnMainThread(Observable<T> observable, Consumer<T> onNext) {
         linkOnMainThread(observable, onNext, Functions.ON_ERROR_MISSING);
     }
@@ -69,6 +73,16 @@ public class RetrofitManager {
     }
 
     public RetrofitManager url(String url) {
+        retrofit = new Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(url)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(FastJsonConverterFactory.create())
+                .build();
+        return this;
+    }
+
+    public RetrofitManager url2(String url) {
         retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl(url)

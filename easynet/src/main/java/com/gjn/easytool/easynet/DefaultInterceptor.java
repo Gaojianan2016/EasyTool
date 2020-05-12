@@ -9,6 +9,7 @@ import com.gjn.easytool.utils.JsonUtils;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -125,10 +126,10 @@ public class DefaultInterceptor implements Interceptor {
         BufferedSource source = responseBody.source();
         source.request(Long.MAX_VALUE);
         Buffer buffer = source.buffer();
-        Charset charset = Charset.forName("UTF-8");
+        Charset charset = StandardCharsets.UTF_8;
         MediaType contentType = responseBody.contentType();
         if (contentType != null) {
-            charset = contentType.charset() == null ? Charset.forName("UTF-8") : contentType.charset();
+            charset = contentType.charset() == null ? StandardCharsets.UTF_8 : contentType.charset();
         }
         String result = buffer.clone().readString(charset);
         if (result.startsWith("{\"")) {

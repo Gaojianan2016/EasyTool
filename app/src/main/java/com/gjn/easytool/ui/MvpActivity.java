@@ -1,6 +1,5 @@
 package com.gjn.easytool.ui;
 
-
 import android.view.View;
 
 import androidx.fragment.app.Fragment;

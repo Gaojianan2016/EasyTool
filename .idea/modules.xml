@@ -3,9 +3,21 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EasyTool.iml" filepath="$PROJECT_DIR$/EasyTool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/EasyTool-app.iml" filepath="$PROJECT_DIR$/app/EasyTool-app.iml" group="EasyTool/app" />
+      <module fileurl="file://$PROJECT_DIR$/dialoger/EasyTool-dialoger.iml" filepath="$PROJECT_DIR$/dialoger/EasyTool-dialoger.iml" group="EasyTool/dialoger" />
+      <module fileurl="file://$PROJECT_DIR$/easymvp/EasyTool-easymvp.iml" filepath="$PROJECT_DIR$/easymvp/EasyTool-easymvp.iml" group="EasyTool/easymvp" />
+      <module fileurl="file://$PROJECT_DIR$/easynet/EasyTool-easynet.iml" filepath="$PROJECT_DIR$/easynet/EasyTool-easynet.iml" group="EasyTool/easynet" />
+      <module fileurl="file://$PROJECT_DIR$/easyrxevent/EasyTool-easyrxevent.iml" filepath="$PROJECT_DIR$/easyrxevent/EasyTool-easyrxevent.iml" group="EasyTool/easyrxevent" />
+      <module fileurl="file://$PROJECT_DIR$/easysqlite/EasyTool-easysqlite.iml" filepath="$PROJECT_DIR$/easysqlite/EasyTool-easysqlite.iml" group="EasyTool/easysqlite" />
+      <module fileurl="file://$PROJECT_DIR$/logger/EasyTool-logger.iml" filepath="$PROJECT_DIR$/logger/EasyTool-logger.iml" group="EasyTool/logger" />
+      <module fileurl="file://$PROJECT_DIR$/toaster/EasyTool-toaster.iml" filepath="$PROJECT_DIR$/toaster/EasyTool-toaster.iml" group="EasyTool/toaster" />
+      <module fileurl="file://$PROJECT_DIR$/utils/EasyTool-utils.iml" filepath="$PROJECT_DIR$/utils/EasyTool-utils.iml" group="EasyTool/utils" />
+      <module fileurl="file://$PROJECT_DIR$/GitHub-EasyTool.iml" filepath="$PROJECT_DIR$/GitHub-EasyTool.iml" group="EasyTool" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/dialoger/dialoger.iml" filepath="$PROJECT_DIR$/dialoger/dialoger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easybase/easybase.iml" filepath="$PROJECT_DIR$/easybase/easybase.iml" group="EasyTool/easybase" />
       <module fileurl="file://$PROJECT_DIR$/easymvp/easymvp.iml" filepath="$PROJECT_DIR$/easymvp/easymvp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easymvvm/easymvvm.iml" filepath="$PROJECT_DIR$/easymvvm/easymvvm.iml" group="EasyTool/easymvvm" />
       <module fileurl="file://$PROJECT_DIR$/easynet/easynet.iml" filepath="$PROJECT_DIR$/easynet/easynet.iml" />
       <module fileurl="file://$PROJECT_DIR$/easyrxevent/easyrxevent.iml" filepath="$PROJECT_DIR$/easyrxevent/easyrxevent.iml" />
       <module fileurl="file://$PROJECT_DIR$/easysqlite/easysqlite.iml" filepath="$PROJECT_DIR$/easysqlite/easysqlite.iml" />

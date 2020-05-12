@@ -38,6 +38,12 @@ dependencies {
 ----------------
 
 ## 更新说明
+**2.0.1x**
+```
+旧版本修复1.1.3~1.1.6的bug内容也升级到androidx
+新增easybase 用于设置基础base
+新增easymvvm 基础版本mvvm模式
+```
 **2.0.0x**
 ```
 所有版本升级androidx
@@ -83,11 +89,6 @@ easymvp 修改Fragment和Activity无法同时存在会崩溃bug。
 **1.0.4**
 ```
 easynet库 修改DownLoadManager管理类新增downloadOnUI方法，传入Activity可以让最后的结果转为UI线程。
-```
-**1.0.3**
-```
-easynet库 修改DownLoadManager管理类停止下载接口,修复某些条件下载无后缀bug，目前只做了单例模式（既单一下载管理，多下载后续加入）
-utils库 修改FileUtils 新增一些对文件名称后缀判断的方法
 ```
 
 ----------------

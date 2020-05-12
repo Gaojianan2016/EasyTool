@@ -11,4 +11,6 @@ public interface IMvpView {
     void fail(String msg);
 
     void error(Throwable tr);
+
+    void completed();
 }

@@ -1,11 +1,9 @@
 package com.gjn.easytool.dialoger;
 
-
-import android.view.View;
-
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import android.view.View;
 
 import com.gjn.easytool.dialoger.base.BaseDialogFragment;
 import com.gjn.easytool.dialoger.base.IDialogConvertView;

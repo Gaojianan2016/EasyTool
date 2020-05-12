@@ -1,5 +1,6 @@
 package com.gjn.easytool.easymvp.base;
 
+import com.gjn.easybase.ABaseActivity;
 import com.gjn.easytool.easymvp.Interface.IMvpView;
 import com.gjn.easytool.easymvp.MvpBindAnnotations;
 
@@ -8,13 +9,20 @@ import com.gjn.easytool.easymvp.MvpBindAnnotations;
  * @time 2019/4/11 14:25
  */
 
-public abstract class BaseMvpActivity<P extends BasePresenter> extends BaseActivity implements IMvpView {
+public abstract class BaseMvpActivity<P extends BasePresenter> extends ABaseActivity implements IMvpView {
     protected MvpBindAnnotations mvpBindAnnotations;
+    protected BaseView mvpView;
 
     @Override
     protected void init() {
-        super.init();
         mvpBindAnnotations = MvpBindAnnotations.newInstance(mActivity);
+        mvpView = getMvpView();
+        mvpBindAnnotations.attachedPresenter(mvpView);
+        super.init();
+    }
+
+    protected BaseView getMvpView() {
+        return null;
     }
 
     protected P getPresenter() {
@@ -47,5 +55,9 @@ public abstract class BaseMvpActivity<P extends BasePresenter> extends BaseActiv
 
     @Override
     public void error(Throwable tr) {
+    }
+
+    @Override
+    public void completed() {
     }
 }

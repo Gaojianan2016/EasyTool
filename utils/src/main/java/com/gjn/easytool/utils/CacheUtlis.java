@@ -11,10 +11,14 @@ import java.io.File;
  */
 public class CacheUtlis {
 
-    public static void clearAllCache(Context context){
-        cleanInternalCache (context);
-        cleanExternalCache (context);
-        clearDatabases (context);
+    public static final String DATA = "/data/data/";
+    public static final String SHARED_PREFERENCE = "/shared_prefs";
+    public static final String DATABASES = "/databases";
+
+    public static void clearAllCache(Context context) {
+        cleanInternalCache(context);
+        cleanExternalCache(context);
+        clearDatabases(context);
         clearSharedPrefs(context);
         clearFiles(context);
     }
@@ -22,17 +26,17 @@ public class CacheUtlis {
     /**
      * 删除内外部cache和file
      */
-    public static void clearCache(Context context){
-        cleanInternalCache (context);
-        cleanExternalCache (context);
+    public static void clearCache(Context context) {
+        cleanInternalCache(context);
+        cleanExternalCache(context);
     }
 
     /**
      * 删除内外部cache和file
      */
-    public static void clearCache2(Context context){
-        cleanInternalCache (context);
-        cleanExternalCache (context);
+    public static void clearCache2(Context context) {
+        cleanInternalCache(context);
+        cleanExternalCache(context);
         clearFiles(context);
     }
 
@@ -63,31 +67,31 @@ public class CacheUtlis {
      * 清除SharedPreference /data/data/com.xxx.xxx/shared_prefs
      */
     public static void clearSharedPrefs(Context context) {
-        FileUtils.deleteFile(new File("/data/data/"+context.getPackageName()+"/shared_prefs"));
+        FileUtils.deleteFile(new File(DATA + context.getPackageName() + SHARED_PREFERENCE));
     }
 
     /**
      * 清除数据库 /data/data/com.xxx.xxx/databases
      */
     public static void clearDatabases(Context context) {
-        FileUtils.deleteFile(new File("/data/data/"+context.getPackageName()+"/databases"));
+        FileUtils.deleteFile(new File(DATA + context.getPackageName() + DATABASES));
     }
 
-    public static String getCacheSizeStr(Context context){
+    public static String getCacheSizeStr(Context context) {
         return StringUtils.getSizeStr(getCacheSize(context));
     }
 
-    public static long getCacheSize(Context context){
+    public static long getCacheSize(Context context) {
         long externalCacheSize = getExternalCacheSize(context);
         long internalCacheSize = getInternalCacheSize(context);
         return externalCacheSize + internalCacheSize;
     }
 
-    public static String getCacheSizeStr2(Context context){
+    public static String getCacheSizeStr2(Context context) {
         return StringUtils.getSizeStr(getCacheSize2(context));
     }
 
-    public static long getCacheSize2(Context context){
+    public static long getCacheSize2(Context context) {
         long externalCacheSize = getExternalCacheSize(context);
         long internalCacheSize = getInternalCacheSize(context);
         long filesCacheSize = getFilesCacheSize(context);

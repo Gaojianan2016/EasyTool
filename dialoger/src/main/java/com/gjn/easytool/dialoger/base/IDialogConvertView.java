@@ -1,6 +1,5 @@
 package com.gjn.easytool.dialoger.base;
 
-
 import androidx.fragment.app.DialogFragment;
 
 /**

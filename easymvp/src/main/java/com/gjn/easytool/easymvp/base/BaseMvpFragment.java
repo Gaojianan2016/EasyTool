@@ -1,5 +1,6 @@
 package com.gjn.easytool.easymvp.base;
 
+import com.gjn.easybase.BaseLazyFragment;
 import com.gjn.easytool.easymvp.Interface.IMvpView;
 import com.gjn.easytool.easymvp.MvpBindAnnotations;
 
@@ -8,13 +9,24 @@ import com.gjn.easytool.easymvp.MvpBindAnnotations;
  * @time 2019/4/11 14:32
  */
 
-public abstract class BaseMvpFragment<P extends BasePresenter> extends BaseFragment implements IMvpView {
+public abstract class BaseMvpFragment<P extends BasePresenter> extends BaseLazyFragment implements IMvpView {
     protected MvpBindAnnotations mvpBindAnnotations;
+    protected BaseView mvpView;
 
     @Override
     protected void init() {
-        super.init();
         mvpBindAnnotations = MvpBindAnnotations.newInstance(mActivity, mFragment);
+        mvpView = getMvpView();
+        mvpBindAnnotations.attachedPresenter(mvpView);
+        super.init();
+    }
+
+    @Override
+    protected void lazyData() {
+    }
+
+    protected BaseView getMvpView() {
+        return null;
     }
 
     protected P getPresenter() {
@@ -49,4 +61,7 @@ public abstract class BaseMvpFragment<P extends BasePresenter> extends BaseFragm
     public void error(Throwable tr) {
     }
 
+    @Override
+    public void completed() {
+    }
 }

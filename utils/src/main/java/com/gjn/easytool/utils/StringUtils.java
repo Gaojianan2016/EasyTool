@@ -52,6 +52,33 @@ public class StringUtils {
         return result;
     }
 
+    public static String hideRealPhoneStr(String str) {
+        return hideRealStr(str, 3, 4);
+    }
+
+    public static String hideRealNameStr(String str) {
+        return hideRealStr(str, 1, 1);
+    }
+
+    public static String hideRealStr(String str, int start, int end) {
+        if (str.length() < 3) {
+            return str;
+        }
+        StringBuilder result = new StringBuilder();
+        String head, foot;
+        head = str.substring(0, start);
+        foot = str.substring(str.length() - end, str.length());
+        int len = str.length() - start - end;
+
+        result.append(head);
+        for (int i = 0; i < len; i++) {
+            result.append("*");
+        }
+        result.append(foot);
+
+        return result.toString();
+    }
+
     public static String msecFormat(long msec) {
         String time = "";
         long minutes = Math.abs(msec) / 60 / 1000;
@@ -94,6 +121,31 @@ public class StringUtils {
             }
         }
         return result;
+    }
+
+    public static String toSecondFormat(long msec) {
+        String time;
+        long second = msec / 1000;
+        if (second > 60) {
+            time = String.format("%02d分%02d秒", second / 60, second % 60);
+        } else {
+            time = "00分00秒";
+        }
+        return time;
+    }
+
+    public static String toMinutes(long msec) {
+        String time;
+        long second = msec / 1000;
+        long minutes = second / 60;
+        if (second > 60 * 60) {
+            time = String.format("%02d:%02d", minutes / 60, minutes % 60);
+        } else if (second > 60) {
+            time = String.format("00:%02d", minutes % 60);
+        } else {
+            time = "00:01";
+        }
+        return time;
     }
 
     public static String doubleFormat(double d) {

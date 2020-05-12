@@ -2,10 +2,10 @@ package com.gjn.easytool.ui;
 
 import android.view.View;
 
+import com.gjn.easybase.BaseLog;
 import com.gjn.easytool.R;
 import com.gjn.easytool.easymvp.BindPresenter;
 import com.gjn.easytool.easymvp.BindPresenters;
-import com.gjn.easytool.easymvp.MvpLog;
 import com.gjn.easytool.easymvp.base.BaseMvpActivity;
 import com.gjn.easytool.easymvp.base.BaseView;
 import com.gjn.easytool.mvp.Mvp2.Mvp2Presenter;
@@ -35,17 +35,17 @@ public class Mvp2Activity extends BaseMvpActivity {
         return new Mvp2View(this) {
             @Override
             public void onSuccess() {
-                MvpLog.e("Mvp2View 11111111111111111");
+                BaseLog.e("Mvp2View 11111111111111111");
             }
 
             @Override
             public void onSuccess2() {
-                MvpLog.e("Mvp2View 2222222222222222222222");
+                BaseLog.e("Mvp2View 2222222222222222222222");
             }
 
             @Override
             public void success() {
-                MvpLog.e("Mvp2View 33333333333");
+                BaseLog.e("Mvp2View 33333333333");
                 findViewById(R.id.btn).postDelayed(new Runnable() {
                     @Override
                     public void run() {

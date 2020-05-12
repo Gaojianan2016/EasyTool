@@ -8,7 +8,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gjn.easytool.R;
-import com.gjn.easytool.easymvp.MvpLog;
 import com.gjn.easytool.easyrxevent.OnSubscribeCallback;
 import com.gjn.easytool.easyrxevent.RxBus2;
 import com.gjn.easytool.easyrxevent.RxMsg;

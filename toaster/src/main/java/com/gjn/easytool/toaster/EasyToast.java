@@ -1,5 +1,6 @@
 package com.gjn.easytool.toaster;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ public class EasyToast {
     private EasyToast() {
     }
 
+    @SuppressLint("ShowToast")
     public static EasyToast getInstance(Context context) {
         if (mToast == null) {
             mContext = context;

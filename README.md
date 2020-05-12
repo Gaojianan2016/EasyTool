@@ -43,6 +43,7 @@ dependencies {
 旧版本修复1.1.3~1.1.6的bug内容也升级到androidx
 新增easybase 用于设置基础base
 新增easymvvm 基础版本mvvm模式
+MvpLog改为BaseLog
 ```
 **2.0.0x**
 ```

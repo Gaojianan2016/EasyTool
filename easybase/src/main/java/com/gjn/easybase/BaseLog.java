@@ -1,14 +1,9 @@
-package com.gjn.easytool.easymvp;
+package com.gjn.easybase;
 
 import com.gjn.easytool.logger.EasyLog;
 
-/**
- * @author gjn
- * @time 2019/5/29 10:03
- */
-
-public class MvpLog {
-    private static final String TAG = "MvpLog";
+public class BaseLog {
+    private static final String TAG = "BaseLog";
 
     public static boolean isDebug = true;
 

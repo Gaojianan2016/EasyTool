@@ -42,17 +42,12 @@ public abstract class ABaseFragment extends Fragment implements IUIEvent {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mView == null) {
             mView = ResourcesUtils.getView(inflater, getLayoutId(), container, false);
+            init();
+            initView();
+            initData();
         }
         ViewUtils.removeParent(mView);
         return mView;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        init();
-        initView();
-        initData();
     }
 
     protected abstract int getLayoutId();

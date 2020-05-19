@@ -31,7 +31,7 @@ public abstract class BaseMvvmActivity<VDB extends ViewDataBinding>
         createViewModel();
     }
 
-    private void createViewModel() {
+    protected void createViewModel() {
         List<Field> fields = AnnotationsUtils.getField(this, BindViewModel.class);
         for (Field field : fields) {
             Class clz = field.getType();

@@ -33,6 +33,7 @@ public abstract class ABaseFragment extends Fragment implements IUIEvent {
         mActivity = getActivity();
         mBundle = getArguments() == null ? new Bundle() : getArguments();
         mDialogManager = new EasyDialogManager(this);
+        getBundle();
         addLifecycleObserver();
     }
 
@@ -41,12 +42,17 @@ public abstract class ABaseFragment extends Fragment implements IUIEvent {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mView == null) {
             mView = ResourcesUtils.getView(inflater, getLayoutId(), container, false);
-            init();
-            initView();
-            initData();
         }
         ViewUtils.removeParent(mView);
         return mView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        init();
+        initView();
+        initData();
     }
 
     protected abstract int getLayoutId();
@@ -56,6 +62,9 @@ public abstract class ABaseFragment extends Fragment implements IUIEvent {
     protected abstract void initData();
 
     protected void preCreate() {
+    }
+
+    protected void getBundle() {
     }
 
     protected void addLifecycleObserver() {

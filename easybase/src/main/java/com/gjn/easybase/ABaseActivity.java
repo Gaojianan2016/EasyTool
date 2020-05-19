@@ -32,7 +32,7 @@ public abstract class ABaseActivity extends AppCompatActivity implements IUIEven
         mContext = this;
         mBundle = getIntent().getExtras() == null ? new Bundle() : getIntent().getExtras();
         mDialogManager = new EasyDialogManager(this);
-
+        getBundle();
         addLifecycleObserver();
         init();
         initView();
@@ -46,6 +46,9 @@ public abstract class ABaseActivity extends AppCompatActivity implements IUIEven
     protected abstract void initData();
 
     protected void preCreate() {
+    }
+
+    protected void getBundle() {
     }
 
     protected void addLifecycleObserver() {

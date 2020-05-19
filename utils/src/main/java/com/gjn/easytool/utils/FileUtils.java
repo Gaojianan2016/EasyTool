@@ -34,6 +34,10 @@ public class FileUtils {
 
     private static final String APP = "/app";
 
+    public static boolean hasFile(String filePath){
+        return new File(filePath).exists();
+    }
+
     public static void openFile(Context context, String filePath) {
         File file = new File(filePath);
         openFile(context, file);

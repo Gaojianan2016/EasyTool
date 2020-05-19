@@ -37,16 +37,21 @@ public abstract class BaseMvvmFragment<VDB extends ViewDataBinding>
             dataBinding = DataBindingUtil.inflate(inflater, getDataLayoutId(), container, false);
             mView = dataBinding.getRoot();
             dataBinding.setLifecycleOwner(this);
-            init();
-            createViewModel();
-            initView();
-            initData();
         }
         ViewUtils.removeParent(mView);
         return mView;
     }
 
-    private void createViewModel() {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        init();
+        createViewModel();
+        initView();
+        initData();
+    }
+
+    protected void createViewModel() {
         List<Field> fields = AnnotationsUtils.getField(this, BindViewModel.class);
         for (Field field : fields) {
             Class clz = field.getType();

@@ -38,7 +38,11 @@ dependencies {
 ----------------
 
 ## 更新说明
-**2.0.2x**
+**2.0.4x**
+```
+Dialog基础类新增IDialogDataBinding DataBindingHolder用于绑定MVVM的布局设置
+```
+**2.0.3x**
 ```
 Base基础类新增getBundle()方法用于直接获取Bundle
 Mvvm基础类将createViewModel改为protected

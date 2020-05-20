@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.gjn.easybase.BaseLog;
 import com.gjn.easytool.R;
 import com.gjn.easytool.easyrxevent.OnSubscribeCallback;
 import com.gjn.easytool.easyrxevent.RxBus2;
@@ -39,7 +40,7 @@ public class RxBusActivity extends AppCompatActivity {
 
             @Override
             public void onNext(RxMsg rxMsg) {
-                MvpLog.e("触发rx2 " + rxMsg.code);
+                BaseLog.e("触发rx2 " + rxMsg.code);
                 Toast.makeText(RxBusActivity.this, "Open2", Toast.LENGTH_SHORT).show();
             }
         });

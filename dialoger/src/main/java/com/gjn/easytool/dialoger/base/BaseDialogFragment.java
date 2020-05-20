@@ -28,7 +28,8 @@ import java.util.List;
  * @time 2019/4/10 10:18
  */
 
-public abstract class BaseDialogFragment extends DialogFragment implements IDialogConvertView {
+public abstract class BaseDialogFragment extends DialogFragment implements IDialogConvertView,
+        IDialogDataBinding {
     private static final String TAG = "BaseDialogFragment";
 
     public static final int WRAP_CONTENT = ViewPager.LayoutParams.WRAP_CONTENT;
@@ -53,6 +54,8 @@ public abstract class BaseDialogFragment extends DialogFragment implements IDial
 
     public abstract int getLayoutId();
 
+    public abstract int getDataLayoutId();
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -65,11 +68,18 @@ public abstract class BaseDialogFragment extends DialogFragment implements IDial
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (getDialogBuilder() == null && getLayoutId() != View.NO_ID) {
+        if (getDialogBuilder() == null) {
             getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-            ViewHolder holder = ViewHolder.create(getActivity(), getLayoutId(), container);
-            convertView(holder, this);
-            return holder.getView();
+            if (getLayoutId() != View.NO_ID) {
+                ViewHolder holder = ViewHolder.create(getActivity(), getLayoutId(), container);
+                convertView(holder, this);
+                return holder.getView();
+            }
+            if (getDataLayoutId() != View.NO_ID) {
+                DataBindingHolder holder = DataBindingHolder.create(getActivity(), getDataLayoutId(), container);
+                convertView(holder, this);
+                return holder.getDataBinding().getRoot();
+            }
         }
         return super.onCreateView(inflater, container, savedInstanceState);
     }

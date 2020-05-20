@@ -143,10 +143,11 @@ public class EasyDialogManager {
     }
 
     public EasyDialogFragment showAndroidDialog(CharSequence title, CharSequence msg,
-                                                CharSequence yes, DialogInterface.OnClickListener yesOnClickListener,
-                                                CharSequence no, DialogInterface.OnClickListener noOnClickListener) {
+                                                CharSequence yes, final DialogInterface.OnClickListener yesOnClickListener,
+                                                CharSequence no, final DialogInterface.OnClickListener noOnClickListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle(title).setMessage(msg).setPositiveButton(yes, yesOnClickListener)
+        builder.setTitle(title).setMessage(msg)
+                .setPositiveButton(yes, yesOnClickListener)
                 .setNegativeButton(no, noOnClickListener);
         EasyDialogFragment dialogFragment = EasyDialogFragment.newInstance(builder);
         showDialog(dialogFragment);

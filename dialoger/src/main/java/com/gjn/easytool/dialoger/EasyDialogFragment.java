@@ -1,12 +1,15 @@
 package com.gjn.easytool.dialoger;
 
+import android.view.View;
+
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
-import android.view.View;
 
 import com.gjn.easytool.dialoger.base.BaseDialogFragment;
+import com.gjn.easytool.dialoger.base.DataBindingHolder;
 import com.gjn.easytool.dialoger.base.IDialogConvertView;
+import com.gjn.easytool.dialoger.base.IDialogDataBinding;
 import com.gjn.easytool.dialoger.base.ViewHolder;
 
 /**
@@ -19,7 +22,12 @@ public class EasyDialogFragment extends BaseDialogFragment {
     @LayoutRes
     private int layoutId = View.NO_ID;
 
+    @LayoutRes
+    private int dataLayoutId = View.NO_ID;
+
     private IDialogConvertView create;
+
+    private IDialogDataBinding dataCreate;
 
     public static EasyDialogFragment newInstance() {
         return newInstance(null);
@@ -32,13 +40,20 @@ public class EasyDialogFragment extends BaseDialogFragment {
     }
 
     public static EasyDialogFragment newInstance(@LayoutRes int layoutId) {
-        return newInstance(layoutId, null);
+        return newInstance(layoutId, (IDialogConvertView) null);
     }
 
     public static EasyDialogFragment newInstance(@LayoutRes int layoutId, IDialogConvertView create) {
         EasyDialogFragment dialogFragment = new EasyDialogFragment();
         dialogFragment.layoutId = layoutId;
         dialogFragment.create = create;
+        return dialogFragment;
+    }
+
+    public static EasyDialogFragment newInstance(@LayoutRes int layoutId, IDialogDataBinding create) {
+        EasyDialogFragment dialogFragment = new EasyDialogFragment();
+        dialogFragment.dataLayoutId = layoutId;
+        dialogFragment.dataCreate = create;
         return dialogFragment;
     }
 
@@ -50,7 +65,16 @@ public class EasyDialogFragment extends BaseDialogFragment {
         this.create = create;
     }
 
+    public void setCreate(IDialogDataBinding create) {
+        this.dataCreate = create;
+    }
+
     public void setCreate(@LayoutRes int id, IDialogConvertView create) {
+        setCreate(id);
+        setCreate(create);
+    }
+
+    public void setCreate(@LayoutRes int id, IDialogDataBinding create) {
         setCreate(id);
         setCreate(create);
     }
@@ -70,9 +94,21 @@ public class EasyDialogFragment extends BaseDialogFragment {
     }
 
     @Override
+    public int getDataLayoutId() {
+        return dataLayoutId;
+    }
+
+    @Override
     public void convertView(ViewHolder holder, DialogFragment dialogFragment) {
         if (create != null) {
             create.convertView(holder, dialogFragment);
+        }
+    }
+
+    @Override
+    public void convertView(DataBindingHolder holder, DialogFragment dialogFragment) {
+        if (dataCreate != null) {
+            dataCreate.convertView(holder, dialogFragment);
         }
     }
 }

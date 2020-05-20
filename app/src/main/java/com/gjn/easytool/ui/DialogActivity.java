@@ -5,8 +5,15 @@ import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 
+import androidx.fragment.app.DialogFragment;
+
 import com.gjn.easytool.R;
+import com.gjn.easytool.databinding.DialogTestBinding;
+import com.gjn.easytool.dialoger.EasyDialogFragment;
 import com.gjn.easytool.dialoger.EasyDialogManager;
+import com.gjn.easytool.dialoger.base.BaseDialogFragment;
+import com.gjn.easytool.dialoger.base.DataBindingHolder;
+import com.gjn.easytool.dialoger.base.IDialogDataBinding;
 import com.gjn.easytool.easymvp.base.BaseMvpActivity;
 
 /**
@@ -106,6 +113,27 @@ public class DialogActivity extends BaseMvpActivity {
                         check();
                     }
                 });
+            }
+        });
+        findViewById(R.id.button9).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BaseDialogFragment dialogFragment = EasyDialogFragment.newInstance(R.layout.dialog_test, new IDialogDataBinding() {
+                    @Override
+                    public void convertView(DataBindingHolder holder, DialogFragment dialogFragment) {
+                        DialogTestBinding binding = (DialogTestBinding) holder.getDataBinding();
+                        binding.btnDt.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showToast("点击DialogTestBinding.btnDt");
+                                check();
+                            }
+                        });
+
+                    }
+                });
+                dialogFragment.setTransparent(true);
+                showDialog(dialogFragment);
             }
         });
     }

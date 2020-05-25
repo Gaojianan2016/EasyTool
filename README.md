@@ -38,6 +38,10 @@ dependencies {
 ----------------
 
 ## 更新说明
+**2.0.5x**
+```
+easyNet DefaultInterceptor类新增打印post json功能
+```
 **2.0.4x**
 ```
 Dialog基础类新增IDialogDataBinding DataBindingHolder用于绑定MVVM的布局设置

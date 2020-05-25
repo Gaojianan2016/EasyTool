@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.gjn.easytool.logger.EasyLog;
 import com.gjn.easytool.utils.JsonUtils;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -99,6 +100,17 @@ public class DefaultInterceptor implements Interceptor {
                     log.append('\n').append(EasyLog.BODY).append(((FormBody) body)
                             .encodedName(i)).append(" = ").append(((FormBody) body).encodedValue(i));
                 }
+            }else {
+                Buffer buffer = new Buffer();
+                body.writeTo(buffer);
+                Charset charset = StandardCharsets.UTF_8;
+                MediaType contentType = body.contentType();
+                if (contentType != null) {
+                    charset = contentType.charset(StandardCharsets.UTF_8);
+                }
+                if (isPlaintext(buffer)) {
+                    log.append('\n').append(EasyLog.BODY).append(buffer.readString(charset));
+                }
             }
         }
         log.append('\n').append(EasyLog.BODY).append(EasyLog.LINE);
@@ -132,10 +144,30 @@ public class DefaultInterceptor implements Interceptor {
             charset = contentType.charset() == null ? StandardCharsets.UTF_8 : contentType.charset();
         }
         String result = buffer.clone().readString(charset);
-        if (result.startsWith("{\"")) {
+        if (result.startsWith("{\"") || result.startsWith("[{")) {
             return JsonUtils.formatString(result);
         } else {
             return result;
+        }
+    }
+
+    private boolean isPlaintext(Buffer buffer) {
+        try {
+            Buffer prefix = new Buffer();
+            long byteCount = buffer.size() < 64 ? buffer.size() : 64;
+            buffer.copyTo(prefix, 0, byteCount);
+            for (int i = 0; i < 16; i++) {
+                if (prefix.exhausted()) {
+                    break;
+                }
+                int codePoint = prefix.readUtf8CodePoint();
+                if (Character.isISOControl(codePoint) && !Character.isWhitespace(codePoint)) {
+                    return false;
+                }
+            }
+            return true;
+        } catch (EOFException e) {
+            return false;
         }
     }
 
